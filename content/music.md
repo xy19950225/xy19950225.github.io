@@ -28,7 +28,7 @@ linkToMarkdown: true
 
 
 
-{{< music auto="https://music.163.com/#/playlist?id=60198" >}}
+{{< music auto="https://music.163.com/#/playlist?id=60200" >}}
 
 
 
