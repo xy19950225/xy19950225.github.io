@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>SQL 力扣练习 | Yang Xu&#39;s Blog
+            
+        </title>
+        <meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="SQL 力扣练习" />
+<meta property="og:description" content="这篇文章主要整理部分 LeeCode 数据库练习题。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xy19950225.github.io/2020-11-13-sql-%E5%8A%9B%E6%89%A3%E7%BB%83%E4%B9%A0/" />
+<meta property="article:published_time" content="2020-11-13T16:30:05+08:00" />
+<meta property="article:modified_time" content="2020-11-13T16:30:05+08:00" /><meta property="og:site_name" content="Yang Xu&#39;s Blog" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SQL 力扣练习"/>
+<meta name="twitter:description" content="这篇文章主要整理部分 LeeCode 数据库练习题。"/>
+<meta name="theme-color" content="#ffffff">
+<meta name="msapplication-TileColor" content="#da532c">
+<link rel="canonical" href="https://xy19950225.github.io/2020-11-13-sql-%E5%8A%9B%E6%89%A3%E7%BB%83%E4%B9%A0/" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://xy19950225.github.io/2020-11-13-sql-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/" /><link rel="next" href="https://xy19950225.github.io/2020-11-13-jupyter-notebook-%E9%85%8D%E7%BD%AE/" /><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><link rel="stylesheet" href="/css/style.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "SQL 力扣练习",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/xy19950225.github.io\/2020-11-13-sql-%E5%8A%9B%E6%89%A3%E7%BB%83%E4%B9%A0\/"
+        },"image": {
+                "@type": "ImageObject",
+                "url": "https:\/\/xy19950225.github.io\/cover.png",
+                "width":  800 ,
+                "height":  600 
+            },"genre": "posts","keywords": "LeeCode, SQL","wordcount":  3016 ,
+        "url": "https:\/\/xy19950225.github.io\/2020-11-13-sql-%E5%8A%9B%E6%89%A3%E7%BB%83%E4%B9%A0\/","datePublished": "2020-11-13","dateModified": "2020-11-13","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","author": {
+                "@type": "Person",
+                "name": "Yang Xu"
+            },"description": ""
+    }
+    </script></head>
+    <body><script>
+            if (!window.localStorage || !window.localStorage.getItem('theme')) {window.isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;} else {
+                window.isDark = (window.localStorage && window.localStorage.getItem('theme')) === 'dark';
+            }
+            window.isDark && document.body.classList.add('dark-theme');
+        </script><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/">Yang Xu&#39;s Blog</a>
+        </div>
+        <div class="menu"><a class="menu-item" href="/posts/" rel="noopener noreffer"><i class='fa fa-home fa-fw' aria-hidden='true'></i>主页</a><a class="menu-item" href="/tags/" rel="noopener noreffer"><i class='fa fa-tag' aria-hidden='true'></i>标签</a><a class="menu-item" href="/categories/" rel="noopener noreffer"><i class='fa fa-book fa-fw' aria-hidden='true'></i>分类</a><a class="menu-item" href="/music/" rel="noopener noreffer"><i class='fa fa-headphones' aria-hidden='true'></i>音乐</a><a class="menu-item" href="/movie/" rel="noopener noreffer"><i class='fa fa-film' aria-hidden='true'></i>电影</a><a class="menu-item" href="/about/" rel="noopener noreffer"><i class='fa fa-cog fa-spin fa-fw' aria-hidden='true'></i>关于</a><a class="menu-item" href="/search/" rel="noopener noreffer"><i class='fas fa-fw fa-search' aria-hidden='true'></i>搜索</a><a class="menu-item" href="https://github.com/xy19950225" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><span class="menu-item">|</span>
+            <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-wrapper">
+        <div class="header-container">
+            <div class="header-title">
+                <a href="/">Yang Xu&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="" rel="noopener noreffer"><i class='fa fa-home fa-fw' aria-hidden='true'></i>主页</a><a class="menu-item" href="/tags/" title="" rel="noopener noreffer"><i class='fa fa-tag' aria-hidden='true'></i>标签</a><a class="menu-item" href="/categories/" title="" rel="noopener noreffer"><i class='fa fa-book fa-fw' aria-hidden='true'></i>分类</a><a class="menu-item" href="/music/" title="" rel="noopener noreffer"><i class='fa fa-headphones' aria-hidden='true'></i>音乐</a><a class="menu-item" href="/movie/" title="" rel="noopener noreffer"><i class='fa fa-film' aria-hidden='true'></i>电影</a><a class="menu-item" href="/about/" title="" rel="noopener noreffer"><i class='fa fa-cog fa-spin fa-fw' aria-hidden='true'></i>关于</a><a class="menu-item" href="/search/" title="" rel="noopener noreffer"><i class='fas fa-fw fa-search' aria-hidden='true'></i>搜索</a><a class="menu-item" href="https://github.com/xy19950225" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+
+<script>
+    window.desktopHeaderMode = "fixed";
+    window.mobileHeaderMode = "auto";
+</script>
+<main class="main">
+                <div class="container"><article class="page single"><h1 class="single-title animated flipInX">SQL 力扣练习</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Yang Xu</a>
+</span>&nbsp;
+                    <span class="post-category">收录于<a href="/categories/%E5%88%B7%E9%A2%98">
+                                <i class="far fa-folder fa-fw"></i>刷题
+                            </a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-11-13>2020-11-13</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 3016 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>预计阅读 7 分钟&nbsp;</div>
+        </div><div class="toc" id="toc-auto">
+                <h2 class="toc-title">目录</h2>
+                <div class="toc-content" id="toc-content-auto"></div>
+            </div>
+            <div class="toc" id="toc-static">
+                <details>
+                    <summary>
+                        <div class="toc-title">
+                            <span>目录</span>
+                            <span><i class="details icon fas fa-angle-down"></i></span>
+                        </div>
+                    </summary>
+                    <div class="toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-前言">1 前言</a></li>
+    <li><a href="#2-正文">2 正文</a>
+      <ul>
+        <li><a href="#21-简单">2.1 简单</a>
+          <ul>
+            <li><a href="#176-第二高的薪水httpsleetcode-cncomproblemssecond-highest-salary"><a href="https://leetcode-cn.com/problems/second-highest-salary/">176. 第二高的薪水</a></a></li>
+            <li><a href="#596-超过5名学生的课httpsleetcode-cncomproblemsclasses-more-than-5-students"><a href="https://leetcode-cn.com/problems/classes-more-than-5-students/">596. 超过5名学生的课</a></a></li>
+            <li><a href="#197-上升的温度httpsleetcode-cncomproblemsrising-temperature"><a href="https://leetcode-cn.com/problems/rising-temperature/">197. 上升的温度</a></a></li>
+          </ul>
+        </li>
+        <li><a href="#22-中等">2.2 中等</a>
+          <ul>
+            <li><a href="#177-第n高的薪水httpsleetcode-cncomproblemsnth-highest-salary"><a href="https://leetcode-cn.com/problems/nth-highest-salary/">177. 第N高的薪水</a></a></li>
+            <li><a href="#184-部门工资最高的员工httpsleetcode-cncomproblemsdepartment-highest-salary"><a href="https://leetcode-cn.com/problems/department-highest-salary/">184. 部门工资最高的员工</a></a></li>
+            <li><a href="#180-连续出现的数字httpsleetcode-cncomproblemsconsecutive-numbers"><a href="https://leetcode-cn.com/problems/consecutive-numbers/">180. 连续出现的数字</a></a></li>
+            <li><a href="#178-分数排名httpsleetcode-cncomproblemsrank-scores"><a href="https://leetcode-cn.com/problems/rank-scores/">178. 分数排名</a></a></li>
+          </ul>
+        </li>
+        <li><a href="#23-困难">2.3 困难</a>
+          <ul>
+            <li><a href="#185-部门工资前三高的所有员工httpsleetcode-cncomproblemsdepartment-top-three-salaries"><a href="https://leetcode-cn.com/problems/department-top-three-salaries/">185. 部门工资前三高的所有员工</a></a></li>
+            <li><a href="#601-体育馆的人流量httpsleetcode-cncomproblemshuman-traffic-of-stadium"><a href="https://leetcode-cn.com/problems/human-traffic-of-stadium/">601. 体育馆的人流量</a></a></li>
+            <li><a href="#262-行程和用户httpsleetcode-cncomproblemstrips-and-users"><a href="https://leetcode-cn.com/problems/trips-and-users/">262. 行程和用户</a></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#3-总结">3 总结</a></li>
+  </ul>
+</nav></div>
+                </details>
+            </div><div class="content" id="content"><p>这篇文章主要整理部分 LeeCode 数据库练习题。</p>
+<h2 id="1-前言">1 前言</h2>
+<p>本文主要整理 LeeCode 数据库练习，内容通常包含以下几个部分：题目简述、重要知识点、解题思路、逻辑步骤和正确的 SQL 代码。</p>
+<p><strong>最后向在评论区分享经验的广大网友致谢！</strong></p>
+<h2 id="2-正文">2 正文</h2>
+<h3 id="21-简单">2.1 简单</h3>
+<h4 id="176-第二高的薪水httpsleetcode-cncomproblemssecond-highest-salary"><a href="https://leetcode-cn.com/problems/second-highest-salary/" target="_blank" rel="noopener noreffer">176. 第二高的薪水</a>
+</h4>
+<p>题目描述：</p>
+<p>编写一个 SQL 查询，获取 Employee 表中第二高的薪水（Salary）</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Id</th>
+<th style="text-align:center">Salary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">100</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">200</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">300</td>
+</tr>
+</tbody>
+</table>
+<p>例如上述 Employee 表，SQL 查询应该返回 200 作为第二高的薪水。 如果不存在第二高的薪水，那么查询应返回 NULL</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">SecondHighestSalary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">200</td>
+</tr>
+</tbody>
+</table>
+<p>解题方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="o">#</span> <span class="err">方法一：使用子查询和</span> <span class="k">LIMIT</span> <span class="err">子句</span>    
+<span class="o">#</span> <span class="err">此方法可适用于求第</span> <span class="n">N</span> <span class="err">高的薪水，且数据越复杂，速度优势越明显</span>
+<span class="k">SELECT</span>
+    <span class="p">(</span><span class="k">SELECT</span> <span class="k">DISTINCT</span> <span class="n">salary</span> 
+    <span class="k">FROM</span> <span class="n">employee</span>
+    <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">salary</span> <span class="k">DESC</span>
+    <span class="k">LIMIT</span> <span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="k">AS</span> <span class="n">SecondHighestSalary</span><span class="p">;</span>
+    
+<span class="o">#</span> <span class="err">方法二：使用</span> <span class="n">IFNULL</span> <span class="err">和</span> <span class="k">LIMIT</span> <span class="err">子句</span>
+<span class="k">SELECT</span>
+   <span class="n">IFNULL</span><span class="p">(</span>
+    <span class="p">(</span><span class="k">SELECT</span> <span class="k">DISTINCT</span> <span class="n">salary</span>
+    <span class="k">FROM</span> <span class="n">employee</span>
+    <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">salary</span> <span class="k">DESC</span>
+    <span class="k">LIMIT</span> <span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="k">NULL</span><span class="p">)</span>  <span class="k">AS</span> <span class="n">SecondHighestSalary</span><span class="p">;</span>
+    
+<span class="o">#</span> <span class="err">方法三：使用子查询和</span> <span class="k">MAX</span><span class="p">()</span> <span class="err">函数</span>
+<span class="k">SELECT</span> <span class="k">MAX</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span> <span class="k">AS</span> <span class="n">SecondHighestSalary</span>
+<span class="k">FROM</span> <span class="n">employee</span>
+<span class="k">WHERE</span> <span class="n">salary</span> <span class="o">&lt;</span> 
+    <span class="p">(</span><span class="k">SELECT</span> <span class="k">MAX</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span>
+    <span class="k">FROM</span> <span class="n">employee</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="596-超过5名学生的课httpsleetcode-cncomproblemsclasses-more-than-5-students"><a href="https://leetcode-cn.com/problems/classes-more-than-5-students/" target="_blank" rel="noopener noreffer">596. 超过5名学生的课</a>
+</h4>
+<p>题目描述：</p>
+<p>有一个 courses 表 ，有 student (学生) 和 class (课程)，请列出所有超过或等于 5 名学生的课。例如，courses 表：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">student</th>
+<th style="text-align:center">class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">A</td>
+<td style="text-align:center">Math</td>
+</tr>
+<tr>
+<td style="text-align:center">B</td>
+<td style="text-align:center">English</td>
+</tr>
+<tr>
+<td style="text-align:center">C</td>
+<td style="text-align:center">Math</td>
+</tr>
+<tr>
+<td style="text-align:center">D</td>
+<td style="text-align:center">Biology</td>
+</tr>
+<tr>
+<td style="text-align:center">E</td>
+<td style="text-align:center">Math</td>
+</tr>
+<tr>
+<td style="text-align:center">F</td>
+<td style="text-align:center">Computer</td>
+</tr>
+<tr>
+<td style="text-align:center">G</td>
+<td style="text-align:center">Math</td>
+</tr>
+<tr>
+<td style="text-align:center">H</td>
+<td style="text-align:center">Math</td>
+</tr>
+<tr>
+<td style="text-align:center">I</td>
+<td style="text-align:center">Math</td>
+</tr>
+</tbody>
+</table>
+<p>应该输出:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Math</td>
+</tr>
+</tbody>
+</table>
+<p>提示：学生在每个课中不应被重复计算</p>
+<p>解题方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="o">#</span> <span class="err">方法：使用</span> <span class="k">GROUP</span> <span class="k">BY</span> <span class="err">和</span> <span class="k">HAVING</span>
+<span class="k">SELECT</span> <span class="k">class</span>
+<span class="k">FROM</span> <span class="n">courses</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="k">class</span>
+<span class="k">HAVING</span> <span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span> <span class="n">student</span><span class="p">)</span> <span class="o">&gt;=</span><span class="mi">5</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="197-上升的温度httpsleetcode-cncomproblemsrising-temperature"><a href="https://leetcode-cn.com/problems/rising-temperature/" target="_blank" rel="noopener noreffer">197. 上升的温度</a>
+</h4>
+<p>题目描述：</p>
+<p>给定一个 Weather 表，编写一个 SQL  查询，来查找与之前（昨天的）日期相比温度更高的所有日期的 Id</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Id(INT)</th>
+<th style="text-align:center">RecordDate(DATE)</th>
+<th style="text-align:center">Temperature(INT)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2015-01-01</td>
+<td style="text-align:center">10</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2015-01-02</td>
+<td style="text-align:center">25</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">2015-01-03</td>
+<td style="text-align:center">20</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">2015-01-04</td>
+<td style="text-align:center">30</td>
+</tr>
+</tbody>
+</table>
+<p>例如，根据上述给定的 Weather 表格，返回如下 Id:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Id</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+</tr>
+</tbody>
+</table>
+<p>解题方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="o">#</span> <span class="err">方法一：使用</span> <span class="k">JOIN</span> <span class="err">和</span> <span class="n">DATEDIFF</span><span class="p">()</span> <span class="err">函数</span>
+<span class="k">SELECT</span> <span class="n">a</span><span class="p">.</span><span class="n">id</span> <span class="k">AS</span> <span class="n">id</span>
+<span class="k">FROM</span> <span class="n">weather</span> <span class="n">a</span>
+<span class="k">JOIN</span> <span class="n">weather</span> <span class="n">b</span>
+<span class="k">ON</span> <span class="n">DATEDIFF</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">recorddate</span><span class="p">,</span><span class="n">b</span><span class="p">.</span><span class="n">recorddate</span><span class="p">)</span><span class="o">=</span><span class="mi">1</span>
+<span class="k">AND</span> <span class="n">a</span><span class="p">.</span><span class="n">temperature</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">.</span><span class="n">temperature</span><span class="p">;</span>
+
+<span class="o">#</span> <span class="err">方法二：使用</span> <span class="k">WHERE</span> <span class="err">和</span> <span class="n">DATEDIFF</span><span class="p">()</span> <span class="err">函数</span>
+<span class="k">SELECT</span> <span class="n">a</span><span class="p">.</span><span class="n">id</span>
+<span class="k">FROM</span> <span class="n">weather</span> <span class="n">a</span><span class="p">,</span> <span class="n">weather</span> <span class="n">b</span> 
+<span class="k">WHERE</span> <span class="n">DATEDIFF</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">recorddate</span><span class="p">,</span><span class="n">b</span><span class="p">.</span><span class="n">recorddate</span><span class="p">)</span><span class="o">=</span><span class="mi">1</span> 
+    <span class="k">AND</span> <span class="n">a</span><span class="p">.</span><span class="n">temperature</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">.</span><span class="n">temperature</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="22-中等">2.2 中等</h3>
+<h4 id="177-第n高的薪水httpsleetcode-cncomproblemsnth-highest-salary"><a href="https://leetcode-cn.com/problems/nth-highest-salary/" target="_blank" rel="noopener noreffer">177. 第N高的薪水</a>
+</h4>
+<p>题目描述：</p>
+<p>编写一个 SQL 查询，获取 Employee 表中第 n 高的薪水（Salary）</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Id</th>
+<th style="text-align:center">Salary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">100</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">200</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">300</td>
+</tr>
+</tbody>
+</table>
+<p>例如上述 Employee 表，n = 2 时，应返回第二高的薪水 200；如果不存在第 n 高的薪水，那么查询应返回 NULL</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">getNthHighestSalary(2)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">200</td>
+</tr>
+</tbody>
+</table>
+<p>解题方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">getNthHighestSalary</span><span class="p">(</span><span class="n">N</span> <span class="nb">INT</span><span class="p">)</span> <span class="k">RETURNS</span> <span class="nb">INT</span>
+<span class="k">BEGIN</span>
+    <span class="k">SET</span> <span class="n">N</span> <span class="o">=</span> <span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+  <span class="k">RETURN</span> <span class="p">(</span>
+      <span class="o">#</span> <span class="k">Write</span> <span class="n">your</span> <span class="n">MySQL</span> <span class="n">query</span> <span class="k">statement</span> <span class="n">below</span><span class="p">.</span>
+      <span class="k">SELECT</span> <span class="k">DISTINCT</span> <span class="n">salary</span> 
+      <span class="k">FROM</span> <span class="n">employee</span>
+      <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">salary</span> <span class="k">DESC</span>
+      <span class="k">LIMIT</span> <span class="n">N</span><span class="p">,</span><span class="mi">1</span>
+  <span class="p">);</span>
+<span class="k">END</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="184-部门工资最高的员工httpsleetcode-cncomproblemsdepartment-highest-salary"><a href="https://leetcode-cn.com/problems/department-highest-salary/" target="_blank" rel="noopener noreffer">184. 部门工资最高的员工</a>
+</h4>
+<p>题目描述：</p>
+<p>Employee 表包含所有员工信息，每个员工有其对应的 Id, Salary 和  DepartmentId</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Id</th>
+<th style="text-align:center">Name</th>
+<th style="text-align:center">Salary</th>
+<th style="text-align:center">DepartmentId</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Joe</td>
+<td style="text-align:center">70000</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Jim</td>
+<td style="text-align:center">90000</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">Henry</td>
+<td style="text-align:center">80000</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">Sam</td>
+<td style="text-align:center">60000</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">Max</td>
+<td style="text-align:center">90000</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+<p>Department 表包含公司所有部门的信息</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Id</th>
+<th style="text-align:center">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">IT</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Sales</td>
+</tr>
+</tbody>
+</table>
+<p>编写一个 SQL 查询，找出每个部门工资最高的员工。对于上述表，您的 SQL 查询应返回以下行（行的顺序无关紧要）</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Department</th>
+<th style="text-align:center">Employee</th>
+<th style="text-align:center">Salary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">IT</td>
+<td style="text-align:center">Max</td>
+<td style="text-align:center">90000</td>
+</tr>
+<tr>
+<td style="text-align:center">IT</td>
+<td style="text-align:center">Jim</td>
+<td style="text-align:center">90000</td>
+</tr>
+<tr>
+<td style="text-align:center">Sales</td>
+<td style="text-align:center">Henry</td>
+<td style="text-align:center">80000</td>
+</tr>
+</tbody>
+</table>
+<p>解释：Max 和 Jim 在 IT 部门的工资都是最高的，Henry 在销售部的工资最高</p>
+<p>解题方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="o">#</span> <span class="err">错误写法</span>
+<span class="k">SELECT</span> 
+    <span class="n">d</span><span class="p">.</span><span class="n">name</span> <span class="k">AS</span> <span class="n">Department</span><span class="p">,</span>
+    <span class="n">e</span><span class="p">.</span><span class="n">name</span> <span class="k">AS</span> <span class="n">Employee</span><span class="p">,</span>
+    <span class="k">MAX</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">salary</span><span class="p">)</span> <span class="k">AS</span> <span class="n">Salary</span>
+<span class="k">FROM</span> <span class="n">employee</span> <span class="n">e</span> 
+<span class="k">JOIN</span> <span class="n">department</span> <span class="n">d</span> 
+<span class="k">ON</span> <span class="n">e</span><span class="p">.</span><span class="n">departmentid</span><span class="o">=</span><span class="n">d</span><span class="p">.</span><span class="n">id</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">Department</span><span class="p">,</span><span class="n">Employee</span><span class="p">,</span><span class="n">Salary</span><span class="p">;</span>
+
+<span class="o">#</span> <span class="err">正确写法</span>
+<span class="o">#</span> <span class="err">方法：使用</span> <span class="k">JOIN</span> <span class="err">和</span> <span class="k">IN</span> <span class="err">语句</span>
+<span class="k">SELECT</span>
+    <span class="n">d</span><span class="p">.</span><span class="n">name</span> <span class="k">AS</span> <span class="n">Department</span><span class="p">,</span>
+    <span class="n">e</span><span class="p">.</span><span class="n">name</span> <span class="k">AS</span> <span class="n">Employee</span><span class="p">,</span>
+    <span class="n">e</span><span class="p">.</span><span class="n">salary</span> <span class="k">AS</span> <span class="n">Salary</span>
+<span class="k">FROM</span> <span class="n">employee</span> <span class="n">e</span>
+<span class="k">JOIN</span> <span class="n">department</span> <span class="n">d</span> <span class="k">ON</span> <span class="n">e</span><span class="p">.</span><span class="n">departmentid</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">id</span>
+<span class="k">WHERE</span> <span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">departmentid</span> <span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">salary</span><span class="p">)</span> <span class="k">IN</span>
+    <span class="p">(</span><span class="k">SELECT</span> <span class="n">departmentid</span><span class="p">,</span> <span class="k">MAX</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span>
+    <span class="k">FROM</span> <span class="n">employee</span>
+    <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">departmentid</span>
+	<span class="p">)</span>
+<span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="180-连续出现的数字httpsleetcode-cncomproblemsconsecutive-numbers"><a href="https://leetcode-cn.com/problems/consecutive-numbers/" target="_blank" rel="noopener noreffer">180. 连续出现的数字</a>
+</h4>
+<p>题目描述：</p>
+<p>编写一个 SQL 查询，查找所有至少连续出现三次的数字</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Id</th>
+<th style="text-align:center">Num</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">2</td>
+</tr>
+</tbody>
+</table>
+<p>例如，给定上面的 Logs 表， 1 是唯一连续出现至少三次的数字</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">ConsecutiveNums</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+<p>解题方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="o">#</span> <span class="err">方法一：用</span> <span class="k">DISTINCT</span> <span class="err">和</span> <span class="k">WHERE</span> <span class="err">语句</span> 
+<span class="k">SELECT</span> <span class="k">DISTINCT</span> <span class="n">a</span><span class="p">.</span><span class="n">num</span> <span class="k">AS</span> <span class="n">ConsecutiveNums</span>
+<span class="k">FROM</span> <span class="n">Logs</span> <span class="n">a</span> <span class="p">,</span><span class="n">Logs</span> <span class="n">b</span> <span class="p">,</span> <span class="n">Logs</span> <span class="k">c</span> 
+<span class="k">WHERE</span> <span class="n">b</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">id</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">AND</span> <span class="k">c</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="n">id</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="k">AND</span> <span class="n">b</span><span class="p">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">num</span> <span class="k">AND</span> <span class="k">c</span><span class="p">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="n">num</span><span class="p">;</span>
+
+<span class="o">#</span> <span class="err">方法二</span><span class="p">:</span> <span class="err">用</span> <span class="k">DISTINCT</span> <span class="err">和</span> <span class="k">JOIN</span> <span class="err">语句</span>
+<span class="o">#</span> <span class="err">比方法一执行速度更快</span>
+<span class="k">SELECT</span> <span class="k">DISTINCT</span> <span class="n">a</span><span class="p">.</span><span class="n">num</span> <span class="k">AS</span> <span class="n">ConsecutiveNums</span>
+<span class="k">FROM</span> <span class="n">logs</span> <span class="n">a</span>
+<span class="k">LEFT</span> <span class="k">JOIN</span> <span class="n">logs</span> <span class="n">b</span> 
+<span class="k">ON</span> <span class="n">b</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">id</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="k">LEFT</span> <span class="k">JOIN</span> <span class="n">logs</span> <span class="k">c</span> 
+<span class="k">ON</span> <span class="k">c</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="n">id</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="k">WHERE</span> <span class="n">b</span><span class="p">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">num</span> <span class="k">AND</span> <span class="k">c</span><span class="p">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="n">num</span><span class="p">;</span>
+
+<span class="o">#</span> <span class="err">上述两种方法有点投机取巧，如果</span> <span class="n">ID</span> <span class="err">不连续，连续出现</span> <span class="n">N</span> <span class="err">次？</span>
+<span class="o">#</span> <span class="err">方法三：</span> <span class="err">用窗口函数</span> <span class="n">ROW_NUMBER</span><span class="p">()</span> <span class="n">OVER</span>
+<span class="o">#</span> <span class="err">参考大佬的思路</span>
+<span class="k">SELECT</span> <span class="k">DISTINCT</span> <span class="n">num</span> <span class="k">AS</span> <span class="n">ConsecutiveNums</span>
+<span class="k">FROM</span> 
+<span class="p">(</span><span class="k">SELECT</span> <span class="n">num</span><span class="p">,</span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">AS</span> <span class="n">num_count</span>
+<span class="k">FROM</span> 
+<span class="p">(</span><span class="k">SELECT</span> 
+    <span class="n">id</span><span class="p">,</span> 
+    <span class="n">num</span><span class="p">,</span>
+    <span class="n">ROW_NUMBER</span><span class="p">()</span> <span class="n">OVER</span><span class="p">(</span><span class="k">ORDER</span> <span class="k">BY</span> <span class="n">id</span><span class="p">)</span> <span class="o">-</span> <span class="n">ROW_NUMBER</span><span class="p">()</span> <span class="n">OVER</span><span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">num</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">id</span><span class="p">)</span> <span class="k">AS</span> <span class="n">orde</span>
+<span class="k">FROM</span> <span class="n">logs</span> <span class="p">)</span> <span class="k">AS</span>  <span class="n">w</span> 
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">num</span><span class="p">,</span><span class="n">orde</span><span class="p">)</span> <span class="k">AS</span> <span class="n">s</span> 
+<span class="k">WHERE</span> <span class="n">num_count</span> <span class="o">&gt;=</span><span class="mi">3</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="178-分数排名httpsleetcode-cncomproblemsrank-scores"><a href="https://leetcode-cn.com/problems/rank-scores/" target="_blank" rel="noopener noreffer">178. 分数排名</a>
+</h4>
+<p>题目描述：</p>
+<p>编写一个 SQL 查询来实现分数排名，如果两个分数相同，则两个分数排名（Rank）相同</p>
+<p>请注意，平分后的下一个名次应该是下一个连续的整数值；换句话说，名次之间不应该有“间隔”</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Id</th>
+<th style="text-align:center">Score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">3.50</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">3.65</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">4.00</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">3.85</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">4.00</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">3.65</td>
+</tr>
+</tbody>
+</table>
+<p>例如，根据上述给定的 Scores 表，你的查询应该返回（按分数从高到低排列）：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Score</th>
+<th style="text-align:center">Rank</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">4.00</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">4.00</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">3.85</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">3.65</td>
+<td style="text-align:center">3</td>
+</tr>
+<tr>
+<td style="text-align:center">3.65</td>
+<td style="text-align:center">3</td>
+</tr>
+<tr>
+<td style="text-align:center">3.50</td>
+<td style="text-align:center">4</td>
+</tr>
+</tbody>
+</table>
+<p>重要提示：对于 MySQL 解决方案，如果要转义用作列名的保留字，可以在关键字之前和之后使用撇号。例如 <code>Rank</code></p>
+<p>解题方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="o">#</span> <span class="err">用窗口函数</span> <span class="n">DENSE_RANK</span><span class="p">()</span> <span class="n">OVER</span><span class="p">()</span>
+<span class="k">SELECT</span> 
+    <span class="n">score</span><span class="p">,</span>
+    <span class="n">DENSE_RANK</span><span class="p">()</span> <span class="n">OVER</span><span class="p">(</span><span class="k">ORDER</span> <span class="k">BY</span> <span class="n">score</span> <span class="k">DESC</span><span class="p">)</span> <span class="s1">&#39;Rank&#39;</span>
+<span class="k">FROM</span> <span class="n">scores</span><span class="p">;</span> 
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="23-困难">2.3 困难</h3>
+<h4 id="185-部门工资前三高的所有员工httpsleetcode-cncomproblemsdepartment-top-three-salaries"><a href="https://leetcode-cn.com/problems/department-top-three-salaries/" target="_blank" rel="noopener noreffer">185. 部门工资前三高的所有员工</a>
+</h4>
+<p>题目描述：</p>
+<p>Employee 表包含所有员工信息，每个员工有其对应的工号 Id，姓名 Name，工资 Salary 和部门编号 DepartmentId</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Id</th>
+<th style="text-align:center">Name</th>
+<th style="text-align:center">Salary</th>
+<th style="text-align:center">DepartmentId</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Joe</td>
+<td style="text-align:center">85000</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Henry</td>
+<td style="text-align:center">80000</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">Sam</td>
+<td style="text-align:center">60000</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">Max</td>
+<td style="text-align:center">90000</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">Janet</td>
+<td style="text-align:center">69000</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">Randy</td>
+<td style="text-align:center">85000</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">Will</td>
+<td style="text-align:center">70000</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+<p>Department 表包含公司所有部门的信息：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Id</th>
+<th style="text-align:center">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">IT</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Sales</td>
+</tr>
+</tbody>
+</table>
+<p>编写一个 SQL 查询，找出每个部门获得前三高工资的所有员工。例如，根据上述给定的表，查询结果应返回：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Department</th>
+<th style="text-align:center">Employee</th>
+<th style="text-align:center">Salary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">IT</td>
+<td style="text-align:center">Max</td>
+<td style="text-align:center">90000</td>
+</tr>
+<tr>
+<td style="text-align:center">IT</td>
+<td style="text-align:center">Randy</td>
+<td style="text-align:center">85000</td>
+</tr>
+<tr>
+<td style="text-align:center">IT</td>
+<td style="text-align:center">Joe</td>
+<td style="text-align:center">85000</td>
+</tr>
+<tr>
+<td style="text-align:center">IT</td>
+<td style="text-align:center">Will</td>
+<td style="text-align:center">70000</td>
+</tr>
+<tr>
+<td style="text-align:center">Sales</td>
+<td style="text-align:center">Henry</td>
+<td style="text-align:center">80000</td>
+</tr>
+<tr>
+<td style="text-align:center">Sales</td>
+<td style="text-align:center">Sam</td>
+<td style="text-align:center">60000</td>
+</tr>
+</tbody>
+</table>
+<p>解释：IT 部门中，Max 获得了最高的工资，Randy 和 Joe 都拿到了第二高的工资，Will 的工资排第三。销售部门（Sales）只有两名员工，Henry 的工资最高，Sam 的工资排第二</p>
+<p>解题方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">department</span><span class="p">,</span><span class="n">employee</span><span class="p">,</span><span class="n">salary</span>
+<span class="k">FROM</span> 
+<span class="p">(</span><span class="k">SELECT</span> 
+    <span class="n">d</span><span class="p">.</span><span class="n">name</span> <span class="k">AS</span> <span class="n">department</span><span class="p">,</span>
+    <span class="n">e</span><span class="p">.</span><span class="n">name</span> <span class="k">AS</span> <span class="n">employee</span><span class="p">,</span>
+    <span class="n">e</span><span class="p">.</span><span class="n">salary</span> <span class="k">AS</span> <span class="n">salary</span><span class="p">,</span>
+    <span class="n">e</span><span class="p">.</span><span class="n">departmentid</span><span class="p">,</span>
+    <span class="n">DENSE_RANK</span><span class="p">()</span> <span class="n">OVER</span><span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">departmentid</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">salary</span> <span class="k">DESC</span><span class="p">)</span> <span class="k">AS</span> <span class="n">rk</span>
+<span class="k">FROM</span> <span class="n">employee</span> <span class="n">e</span> 
+<span class="k">JOIN</span> <span class="n">department</span> <span class="n">d</span> 
+<span class="k">ON</span> <span class="n">e</span><span class="p">.</span><span class="n">departmentid</span><span class="o">=</span><span class="n">d</span><span class="p">.</span><span class="n">id</span><span class="p">)</span> <span class="k">AS</span> <span class="n">w</span> 
+<span class="k">WHERE</span> <span class="n">rk</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="601-体育馆的人流量httpsleetcode-cncomproblemshuman-traffic-of-stadium"><a href="https://leetcode-cn.com/problems/human-traffic-of-stadium/" target="_blank" rel="noopener noreffer">601. 体育馆的人流量</a>
+</h4>
+<p>题目描述：</p>
+<p>X 市建了一个新的体育馆，每日人流量信息被记录在这三列信息中：序号 (id)、日期 (visit_date)、 人流量 (people)。</p>
+<p>请编写一个查询语句，找出人流量的高峰期。高峰期时，至少连续三行记录中的人流量不少于100。</p>
+<p>例如，表 stadium：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">id</th>
+<th style="text-align:center">visit_date</th>
+<th style="text-align:center">people</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2017-01-01</td>
+<td style="text-align:center">10</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2017-01-02</td>
+<td style="text-align:center">109</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">2017-01-03</td>
+<td style="text-align:center">150</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">2017-01-04</td>
+<td style="text-align:center">99</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">2017-01-05</td>
+<td style="text-align:center">145</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">2017-01-06</td>
+<td style="text-align:center">1455</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">2017-01-07</td>
+<td style="text-align:center">199</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">2017-01-08</td>
+<td style="text-align:center">188</td>
+</tr>
+</tbody>
+</table>
+<p>对于上面的示例数据，输出为：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">id</th>
+<th style="text-align:center">visit_date</th>
+<th style="text-align:center">people</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">2017-01-05</td>
+<td style="text-align:center">145</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">2017-01-06</td>
+<td style="text-align:center">1455</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">2017-01-07</td>
+<td style="text-align:center">199</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">2017-01-08</td>
+<td style="text-align:center">188</td>
+</tr>
+</tbody>
+</table>
+<p><strong>提示：</strong></p>
+<ul>
+<li>每天只有一行记录，日期随着 id 的增加而增加。</li>
+<li>体育馆并不是每天都开放的，所以记录中的日期可能会出现断层。</li>
+</ul>
+<p>解题方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="o">#</span> <span class="err">方法一：使用双层窗口函数，内层窗口函数求分组编号，外层对分组结果记录数求和</span>
+<span class="k">SELECT</span> 
+    <span class="n">id</span><span class="p">,</span>
+    <span class="n">visit_date</span><span class="p">,</span>
+    <span class="n">people</span>
+<span class="k">FROM</span> 
+<span class="p">(</span><span class="k">SELECT</span> 
+    <span class="n">id</span><span class="p">,</span>
+    <span class="n">visit_date</span><span class="p">,</span>
+    <span class="n">people</span><span class="p">,</span>
+    <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="n">OVER</span><span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">a</span><span class="p">)</span> <span class="k">AS</span> <span class="n">b</span> <span class="c1">-- 3.获得同一连续组内记录数
+</span><span class="c1"></span><span class="k">FROM</span>
+<span class="p">(</span><span class="k">SELECT</span> 
+    <span class="n">id</span><span class="p">,</span>
+    <span class="n">visit_date</span><span class="p">,</span>
+    <span class="n">people</span><span class="p">,</span>
+    <span class="n">id</span><span class="o">-</span><span class="n">ROW_NUMBER</span><span class="p">()</span> <span class="n">OVER</span><span class="p">(</span><span class="k">ORDER</span> <span class="k">BY</span> <span class="n">visit_date</span><span class="p">)</span> <span class="k">AS</span> <span class="n">a</span> <span class="c1">-- 2.按日期排序 用id-row_number的方式判断是否连续
+</span><span class="c1"></span><span class="k">FROM</span> <span class="n">stadium</span>
+<span class="k">WHERE</span> <span class="n">people</span> <span class="o">&gt;=</span><span class="mi">100</span><span class="p">)</span> <span class="k">AS</span> <span class="n">w</span><span class="p">)</span> <span class="k">AS</span> <span class="n">q</span> <span class="c1">-- 1.挑选出人流超过100的天数
+</span><span class="c1"></span><span class="k">WHERE</span> <span class="n">b</span> <span class="o">&gt;=</span><span class="mi">3</span><span class="p">;</span>
+
+<span class="o">#</span> <span class="err">方法二</span>
+<span class="k">SELECT</span> 
+    <span class="n">id</span><span class="p">,</span>
+    <span class="n">visit_date</span><span class="p">,</span>
+    <span class="n">people</span>
+<span class="k">FROM</span>
+<span class="p">(</span><span class="k">SELECT</span> 
+    <span class="n">id</span><span class="p">,</span>
+    <span class="n">visit_date</span><span class="p">,</span>
+    <span class="n">people</span><span class="p">,</span>
+    <span class="n">LAG</span><span class="p">(</span><span class="n">people</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="n">OVER</span><span class="p">(</span><span class="k">ORDER</span> <span class="k">BY</span> <span class="n">id</span><span class="p">)</span> <span class="k">AS</span> <span class="n">pprvpeople</span><span class="p">,</span>
+    <span class="n">LAG</span><span class="p">(</span><span class="n">people</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="n">OVER</span><span class="p">(</span><span class="k">ORDER</span> <span class="k">BY</span> <span class="n">id</span><span class="p">)</span> <span class="k">AS</span> <span class="n">prvpeople</span><span class="p">,</span>
+    <span class="n">LEAD</span><span class="p">(</span><span class="n">people</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="n">OVER</span><span class="p">(</span><span class="k">ORDER</span> <span class="k">BY</span> <span class="n">id</span><span class="p">)</span> <span class="k">AS</span> <span class="n">nextpeople</span><span class="p">,</span>
+    <span class="n">LEAD</span><span class="p">(</span><span class="n">people</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="n">OVER</span><span class="p">(</span><span class="k">ORDER</span> <span class="k">BY</span> <span class="n">id</span><span class="p">)</span> <span class="k">AS</span> <span class="n">nnextpeople</span>
+<span class="k">FROM</span> <span class="n">stadium</span><span class="p">)</span> <span class="k">AS</span> <span class="n">people</span>
+<span class="k">WHERE</span>
+ <span class="p">(</span><span class="n">people</span> <span class="o">&gt;=</span><span class="mi">100</span> <span class="k">AND</span> <span class="n">pprvpeople</span> <span class="o">&gt;=</span><span class="mi">100</span> <span class="k">AND</span> <span class="n">prvpeople</span> <span class="o">&gt;=</span><span class="mi">100</span><span class="p">)</span> <span class="k">OR</span>
+ <span class="p">(</span><span class="n">people</span> <span class="o">&gt;=</span><span class="mi">100</span> <span class="k">AND</span> <span class="n">prvpeople</span> <span class="o">&gt;=</span><span class="mi">100</span> <span class="k">AND</span> <span class="n">nextpeople</span> <span class="o">&gt;=</span><span class="mi">100</span><span class="p">)</span> <span class="k">OR</span>
+ <span class="p">(</span><span class="n">people</span> <span class="o">&gt;=</span><span class="mi">100</span> <span class="k">AND</span> <span class="n">nextpeople</span> <span class="o">&gt;=</span><span class="mi">100</span> <span class="k">AND</span> <span class="n">nnextpeople</span> <span class="o">&gt;=</span><span class="mi">100</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="262-行程和用户httpsleetcode-cncomproblemstrips-and-users"><a href="https://leetcode-cn.com/problems/trips-and-users/" target="_blank" rel="noopener noreffer">262. 行程和用户</a>
+</h4>
+<p>题目描述：</p>
+<p>Trips 表中存所有出租车的行程信息。每段行程有唯一键 Id，Client_Id 和 Driver_Id 是 Users 表中 Users_Id 的外键。Status 是枚举类型，枚举成员为 (‘completed’, ‘cancelled_by_driver’, ‘cancelled_by_client’)。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Id</th>
+<th style="text-align:center">Client_Id</th>
+<th style="text-align:center">Driver_Id</th>
+<th style="text-align:center">City_Id</th>
+<th style="text-align:center">Status</th>
+<th style="text-align:center">Request_at</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">completed</td>
+<td style="text-align:center">2013-10-01</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">cancelled_by_driver</td>
+<td style="text-align:center">2013-10-01</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">completed</td>
+<td style="text-align:center">2013-10-01</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">13</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">cancelled_by_client</td>
+<td style="text-align:center">2013-10-01</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">completed</td>
+<td style="text-align:center">2013-10-02</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">completed</td>
+<td style="text-align:center">2013-10-02</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">completed</td>
+<td style="text-align:center">2013-10-02</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">completed</td>
+<td style="text-align:center">2013-10-03</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">completed</td>
+<td style="text-align:center">2013-10-03</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">13</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">cancelled_by_driver</td>
+<td style="text-align:center">2013-10-03</td>
+</tr>
+</tbody>
+</table>
+<p>Users 表存所有用户。每个用户有唯一键 Users_Id。Banned 表示这个用户是否被禁止，Role 则是一个表示（‘client’, ‘driver’, ‘partner’）的枚举类型。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Users_Id</th>
+<th style="text-align:center">Banned</th>
+<th style="text-align:center">Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">No</td>
+<td style="text-align:center">client</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Yes</td>
+<td style="text-align:center">client</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">No</td>
+<td style="text-align:center">client</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">No</td>
+<td style="text-align:center">client</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">No</td>
+<td style="text-align:center">driver</td>
+</tr>
+<tr>
+<td style="text-align:center">11</td>
+<td style="text-align:center">No</td>
+<td style="text-align:center">driver</td>
+</tr>
+<tr>
+<td style="text-align:center">12</td>
+<td style="text-align:center">No</td>
+<td style="text-align:center">driver</td>
+</tr>
+<tr>
+<td style="text-align:center">13</td>
+<td style="text-align:center">No</td>
+<td style="text-align:center">driver</td>
+</tr>
+</tbody>
+</table>
+<p>写一段 SQL 语句查出 2013 年10 月1日 至 2013 年10 月 3 日期间非禁止用户的取消率。基于上表，你的 SQL 语句应返回如下结果，取消率（Cancellation Rate）保留两位小数。</p>
+<p>取消率的计算方式如下：(被司机或乘客取消的非禁止用户生成的订单数量) / (非禁止用户生成的订单总数)</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Day</th>
+<th style="text-align:center">Cancellation Rate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">2013-10-01</td>
+<td style="text-align:center">0.33</td>
+</tr>
+<tr>
+<td style="text-align:center">2013-10-02</td>
+<td style="text-align:center">0.00</td>
+</tr>
+<tr>
+<td style="text-align:center">2013-10-03</td>
+<td style="text-align:center">0.50</td>
+</tr>
+</tbody>
+</table>
+<p>解题方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">T</span><span class="p">.</span><span class="n">request_at</span> <span class="k">AS</span> <span class="o">`</span><span class="k">Day</span><span class="o">`</span><span class="p">,</span> 
+	<span class="n">ROUND</span><span class="p">(</span>
+			<span class="k">SUM</span><span class="p">(</span>
+				<span class="k">IF</span><span class="p">(</span><span class="n">T</span><span class="p">.</span><span class="n">STATUS</span> <span class="o">=</span> <span class="s1">&#39;completed&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+			<span class="p">)</span>
+			<span class="o">/</span> 
+			<span class="k">COUNT</span><span class="p">(</span><span class="n">T</span><span class="p">.</span><span class="n">STATUS</span><span class="p">),</span>
+			<span class="mi">2</span>
+	<span class="p">)</span> <span class="k">AS</span> <span class="o">`</span><span class="n">Cancellation</span> <span class="n">Rate</span><span class="o">`</span>
+<span class="k">FROM</span> <span class="n">Trips</span> <span class="k">AS</span> <span class="n">T</span>
+<span class="k">JOIN</span> <span class="n">Users</span> <span class="k">AS</span> <span class="n">U1</span> <span class="k">ON</span> <span class="p">(</span><span class="n">T</span><span class="p">.</span><span class="n">client_id</span> <span class="o">=</span> <span class="n">U1</span><span class="p">.</span><span class="n">users_id</span> <span class="k">AND</span> <span class="n">U1</span><span class="p">.</span><span class="n">banned</span> <span class="o">=</span><span class="s1">&#39;No&#39;</span><span class="p">)</span>
+<span class="k">JOIN</span> <span class="n">Users</span> <span class="k">AS</span> <span class="n">U2</span> <span class="k">ON</span> <span class="p">(</span><span class="n">T</span><span class="p">.</span><span class="n">driver_id</span> <span class="o">=</span> <span class="n">U2</span><span class="p">.</span><span class="n">users_id</span> <span class="k">AND</span> <span class="n">U2</span><span class="p">.</span><span class="n">banned</span> <span class="o">=</span><span class="s1">&#39;No&#39;</span><span class="p">)</span>
+<span class="k">WHERE</span> <span class="n">T</span><span class="p">.</span><span class="n">request_at</span> <span class="k">BETWEEN</span> <span class="s1">&#39;2013-10-01&#39;</span> <span class="k">AND</span> <span class="s1">&#39;2013-10-03&#39;</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">T</span><span class="p">.</span><span class="n">request_at</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="3-总结">3 总结</h2>
+<p>通过这一段时间的练习基本熟悉了 SQL 的常用语句，JOIN 语句和窗口函数在 SQL 中的重要性不言而喻 。后面我将继续学习 SQL 中的窗口函数和  JOIN 语句，Let&rsquo;s go !😀</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>本文于 2020-11-13 更新</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/leecode">LeeCode</a>,&nbsp;<a href="/tags/sql">SQL</a></section>
+        <section>
+            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2020-11-13-sql-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/" class="prev" rel="prev" title="SQL 窗口函数总结"><i class="fas fa-angle-left fa-fw"></i>SQL 窗口函数总结</a>
+            <a href="/2020-11-13-jupyter-notebook-%E9%85%8D%E7%BD%AE/" class="next" rel="next" title="Jupyter Notebook 配置">Jupyter Notebook 配置<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div class="comment"></div>
+    </article></div>
+            </main><footer class="footer">
+    <div class="copyright"><div class="copyright-line">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer"><i class="far fa-heart fa-fw"></i> LoveIt</a>
+        </div>
+
+        <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Yang Xu</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+    </div>
+</footer>
+</div><a href="#" class="dynamic-to-top animated faster" id="dynamic-to-top">
+            <i class="fas fa-chevron-up fa-fw"></i>
+        </a><script>
+        document.addEventListener('DOMContentLoaded', function () {
+            lightGallery(document.getElementById('content'), {
+                selector: '.lightgallery',
+                speed: 400,
+                hideBarsDelay: 2000,
+                thumbnail: true,
+                exThumbImage: 'data-thumbnail',
+                thumbWidth: 80,
+                thumbContHeight: 80,
+            });
+        });
+    </script><script>
+        document.addEventListener('DOMContentLoaded', function () {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '\\[', right: '\\]', display: true },{ left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },],
+                strict: false,
+            });
+        });
+    </script><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script src="/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/lightgallery/lightgallery.min.js"></script><script src="/lib/lightgallery/lg-thumbnail.min.js"></script><script src="/lib/lightgallery/lg-zoom.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/auto-render.min.js"></script><script src="/lib/katex/copy-tex.min.js"></script><script src="/lib/katex/mhchem.min.js"></script><script src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Jupyter Notebook 配置 | Yang Xu&#39;s Blog
+            
+        </title>
+        <meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="Jupyter Notebook 配置" />
+<meta property="og:description" content="了解如何简单配置  Jupyter Notebook。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xy19950225.github.io/2020-11-13-jupyter-notebook-%E9%85%8D%E7%BD%AE/" />
+<meta property="article:published_time" content="2020-11-13T16:30:05+08:00" />
+<meta property="article:modified_time" content="2020-11-13T16:30:05+08:00" /><meta property="og:site_name" content="Yang Xu&#39;s Blog" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Jupyter Notebook 配置"/>
+<meta name="twitter:description" content="了解如何简单配置  Jupyter Notebook。"/>
+<meta name="theme-color" content="#ffffff">
+<meta name="msapplication-TileColor" content="#da532c">
+<link rel="canonical" href="https://xy19950225.github.io/2020-11-13-jupyter-notebook-%E9%85%8D%E7%BD%AE/" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://xy19950225.github.io/2020-11-13-sql-%E5%8A%9B%E6%89%A3%E7%BB%83%E4%B9%A0/" /><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><link rel="stylesheet" href="/css/style.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Jupyter Notebook 配置",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/xy19950225.github.io\/2020-11-13-jupyter-notebook-%E9%85%8D%E7%BD%AE\/"
+        },"image": {
+                "@type": "ImageObject",
+                "url": "https:\/\/xy19950225.github.io\/cover.png",
+                "width":  800 ,
+                "height":  600 
+            },"genre": "posts","keywords": "Anaconda, Jupyter Notebook","wordcount":  2902 ,
+        "url": "https:\/\/xy19950225.github.io\/2020-11-13-jupyter-notebook-%E9%85%8D%E7%BD%AE\/","datePublished": "2020-11-13","dateModified": "2020-11-13","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","author": {
+                "@type": "Person",
+                "name": "Yang Xu"
+            },"description": ""
+    }
+    </script></head>
+    <body><script>
+            if (!window.localStorage || !window.localStorage.getItem('theme')) {window.isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;} else {
+                window.isDark = (window.localStorage && window.localStorage.getItem('theme')) === 'dark';
+            }
+            window.isDark && document.body.classList.add('dark-theme');
+        </script><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/">Yang Xu&#39;s Blog</a>
+        </div>
+        <div class="menu"><a class="menu-item" href="/posts/" rel="noopener noreffer"><i class='fa fa-home fa-fw' aria-hidden='true'></i>主页</a><a class="menu-item" href="/tags/" rel="noopener noreffer"><i class='fa fa-tag' aria-hidden='true'></i>标签</a><a class="menu-item" href="/categories/" rel="noopener noreffer"><i class='fa fa-book fa-fw' aria-hidden='true'></i>分类</a><a class="menu-item" href="/music/" rel="noopener noreffer"><i class='fa fa-headphones' aria-hidden='true'></i>音乐</a><a class="menu-item" href="/movie/" rel="noopener noreffer"><i class='fa fa-film' aria-hidden='true'></i>电影</a><a class="menu-item" href="/about/" rel="noopener noreffer"><i class='fa fa-cog fa-spin fa-fw' aria-hidden='true'></i>关于</a><a class="menu-item" href="/search/" rel="noopener noreffer"><i class='fas fa-fw fa-search' aria-hidden='true'></i>搜索</a><a class="menu-item" href="https://github.com/xy19950225" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><span class="menu-item">|</span>
+            <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-wrapper">
+        <div class="header-container">
+            <div class="header-title">
+                <a href="/">Yang Xu&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="" rel="noopener noreffer"><i class='fa fa-home fa-fw' aria-hidden='true'></i>主页</a><a class="menu-item" href="/tags/" title="" rel="noopener noreffer"><i class='fa fa-tag' aria-hidden='true'></i>标签</a><a class="menu-item" href="/categories/" title="" rel="noopener noreffer"><i class='fa fa-book fa-fw' aria-hidden='true'></i>分类</a><a class="menu-item" href="/music/" title="" rel="noopener noreffer"><i class='fa fa-headphones' aria-hidden='true'></i>音乐</a><a class="menu-item" href="/movie/" title="" rel="noopener noreffer"><i class='fa fa-film' aria-hidden='true'></i>电影</a><a class="menu-item" href="/about/" title="" rel="noopener noreffer"><i class='fa fa-cog fa-spin fa-fw' aria-hidden='true'></i>关于</a><a class="menu-item" href="/search/" title="" rel="noopener noreffer"><i class='fas fa-fw fa-search' aria-hidden='true'></i>搜索</a><a class="menu-item" href="https://github.com/xy19950225" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+
+<script>
+    window.desktopHeaderMode = "fixed";
+    window.mobileHeaderMode = "auto";
+</script>
+<main class="main">
+                <div class="container"><article class="page single"><h1 class="single-title animated flipInX">Jupyter Notebook 配置</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Yang Xu</a>
+</span>&nbsp;
+                    <span class="post-category">收录于<a href="/categories/%E6%96%87%E6%A1%A3">
+                                <i class="far fa-folder fa-fw"></i>文档
+                            </a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-11-13>2020-11-13</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 2902 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>预计阅读 6 分钟&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-sizes="auto"
+        data-srcset="/images/theme-documentation-content/featured-image.jpg, /images/theme-documentation-content/featured-image.jpg 1.5x, /images/theme-documentation-content/featured-image.jpg 2x"
+        data-src="/images/theme-documentation-content/featured-image.jpg"
+        alt=""
+        title="" /></div><div class="toc" id="toc-auto">
+                <h2 class="toc-title">目录</h2>
+                <div class="toc-content" id="toc-content-auto"></div>
+            </div>
+            <div class="toc" id="toc-static">
+                <details>
+                    <summary>
+                        <div class="toc-title">
+                            <span>目录</span>
+                            <span><i class="details icon fas fa-angle-down"></i></span>
+                        </div>
+                    </summary>
+                    <div class="toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#jupyter-配置文件">Jupyter 配置文件</a></li>
+    <li><a href="#1-更改默认工作目录">1. 更改默认工作目录</a></li>
+    <li><a href="#2更改默认浏览器">2.更改默认浏览器</a></li>
+    <li><a href="#3-设置登录密码">3. 设置登录密码</a></li>
+    <li><a href="#4安装扩展插件">4.安装扩展插件</a></li>
+    <li><a href="#conda-常用命令">Conda 常用命令</a></li>
+    <li><a href="#1-获取版本号">1. 获取版本号</a></li>
+    <li><a href="#2-获取帮助">2. 获取帮助</a></li>
+    <li><a href="#3-更新管理">3. 更新管理</a></li>
+    <li><a href="#4-环境管理">4. 环境管理</a></li>
+    <li><a href="#5-包管理">5. 包管理</a></li>
+    <li><a href="#踩坑">踩坑</a></li>
+    <li><a href="#问题01-jupyter-notebookkernel-error-已解决">问题01 Jupyter Notebook：kernel error 已解决</a>
+      <ul>
+        <li><a href="#问题描述">问题描述</a></li>
+        <li><a href="#解决方案">解决方案</a></li>
+        <li><a href="#小技巧">小技巧</a></li>
+      </ul>
+    </li>
+    <li><a href="#问题02">问题02</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+                </details>
+            </div><div class="content" id="content"><p>了解如何简单配置  Jupyter Notebook。</p>
+<h2 id="jupyter-配置文件">Jupyter 配置文件</h2>
+<p>配置文件，顾名思义就是可以修改Jupyter各种配置的文件。想要修改Jupyter那些默认的配置选项，就需要在配置文件<code>jupyter_notebook_config.py</code>中修改相应配置选项的属性。</p>
+<p>这个配置文件一开始并不存在，需要手动生成。方式很简单，在命令行输入<code>jupyter notebook --generate-config</code>并执行，配置文件就创建好了，它的位置是在<code>C:\Users\Administrator\.jupyter\</code>中。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2020/11/19/TkgMvDp8f74CtBj.png,  1.5x,  2x"
+        data-src=""
+        alt="img"
+        title="img" /></p>
+<p>然后我们去c盘主目录下打开.jupyter文件夹，就能找到配置文件：<code>jupyter_notebook_config.py</code><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://filescdn.proginn.com/41b6e91d48628f78e66d900d12c3bc1d/1064e411a64ea204231a45f4e48e7543.webp,  1.5x,  2x"
+        data-src=""
+        alt="img"
+        title="img" />配置文件是关键，后面都要用到的。</p>
+<h2 id="1-更改默认工作目录">1. 更改默认工作目录</h2>
+<p>一般情况下，Jupyter的默认工作目录为<code>C:\Users\Administrator\</code>，这样很不清爽，而且不便于管理项目，所以常需要在其他盘建立一个独立的Jupyter工作目录文件。<img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://filescdn.proginn.com/71071936ed2c5394d8388054450aea2b/05a7d7d5f7ae7befa02125b7218b95d9.webp,  1.5x,  2x"
+        data-src=""
+        alt="img"
+        title="img" /></p>
+<p>前面提到配置文件<code>jupyter_notebook_config.py</code>，工作目录就在这个里面修改。</p>
+<ol>
+<li>用记事本打开配置文件<code>jupyter_notebook_config.py</code>；</li>
+<li>Crtl + F组合键找到<code>c.NotebookApp.notebook_dir</code>元素，删掉前面的注释<code>#</code>；</li>
+<li>在后面的单引号里输入要设置的目录路径（注意双斜杠），保存关闭；例如：<code>c.NotebookApp.notebook_dir = &quot;E:\\jupyter_notebook&quot;</code></li>
+<li>修改快捷键，在win开始菜单中找到<code>jupyter notebook</code>快捷图标，右击选择属性，删除目标值最后的 “%USERPROFILE%/”，点击确定退出。</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://filescdn.proginn.com/3bf28446e6b47b046f7e60320ba1e5f2/329594e45d9fa1d138e38dc20c2c779d.webp,  1.5x,  2x"
+        data-src=""
+        alt="img"
+        title="img" /></p>
+<p>经过这四个步骤，工作目录就修改好了，这时候不管你是通过快捷键还是命令行进入Jupyter Notebook，都能看到最新设置的目录，干净清爽。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2020/11/19/9Mfo51rwYTvPSQL.jpg,  1.5x,  2x"
+        data-src=""
+        alt="img"
+        title="img" /></p>
+<h2 id="2更改默认浏览器">2.更改默认浏览器</h2>
+<p>很多小伙伴有自己的浏览器偏好，希望Jupyter运行在经常使用的那个浏览器上。</p>
+<p>更改Jupyter默认浏览器也比较简单，以设置chrome浏览器为例：</p>
+<ol>
+<li>找到chrome.exe文件的安装路径，复制该路径。例如：<code>u'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'</code>查找方式？右键chorme图标，打开文件所在位置，如下图：</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://filescdn.proginn.com/91847da82c8b97c6c79078846222a620/b603afcd741e4ca896853aa0adc72f4c.webp,  1.5x,  2x"
+        data-src=""
+        alt="img"
+        title="img" /></p>
+<ol start="2">
+<li>用记事本打开配置文件<code>jupyter_notebook_config.py</code>；</li>
+<li>Crtl + F组合键找到<code>c.NotebookApp.browser</code>元素；</li>
+<li>在找到记录的下方添加以下代码（注意替换为你的chrome.exe路径）：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">import webbrowser
+webbrowser.register(&#39;chrome&#39;, None, webbrowser.GenericBrowser(u&#39;C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe&#39;))
+c.NotebookApp.browser = &#39;chrome&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>保存文件。这样就大功告成了，重新启动Jupyter，就会在新设定的浏览器上运行。</p>
+<h2 id="3-设置登录密码">3. 设置登录密码</h2>
+<p>假如你对自己的Jupyter目录很敏感，不想让别人轻易使用，那么可以设置登录密码。步骤如下：</p>
+<ol>
+<li>用记事本打开配置文件<code>jupyter_notebook_config.py</code>；</li>
+<li>Crtl + F组合键找到<code>c.NotebookApp.allow_password_change</code>元素，修改为：<code>NotebookApp.allow_password_change=False</code>，并且删掉前面的注释<code>#</code>，保存文件；</li>
+<li>回到windows命令行，运行<code>jupyter notebook password</code>，按照提示输入新密码（注意这里的密码是不显示的）；</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://filescdn.proginn.com/2e3b6c0b7a6f7848a4fa684f473dac06/596372de93a583ec3d458a29fe1391c7.webp,  1.5x,  2x"
+        data-src=""
+        alt="img"
+        title="img" /></p>
+<ol>
+<li>可以看到上一步生成了一个json文件，保存在<code>.jupyter</code>文件夹里，和配置文件一个位置。这个json文件保存了密码生成的一段哈希值。找到该文件并打开，复制这段哈希值。<img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://filescdn.proginn.com/bd90a3ecbb37dd1936b3ac881637dcc1/6f6e1ea04a8295416b7d5879943c2aaa.webp,  1.5x,  2x"
+        data-src=""
+        alt="img"
+        title="img" /></li>
+<li>再一次打开配置文件<code>jupyter_notebook_config.py</code>；</li>
+<li>Crtl + F组合键找到<code>c.NotebookApp.password</code>元素，将前面的哈希值添加到后面，并且删掉前面的注释<code>#</code>，保存文件；示例：<code>c.NotebookApp.password = u'sha1:67c9e60bb8b6:9ffede0825894254b2e042ea597d771089e11aed'</code></li>
+<li>到这里全部设置好了，重启Jupyter，就可以输入新密码登录。<img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2020/11/19/HRlFv7B4wGk3c1S.png,  1.5x,  2x"
+        data-src=""
+        alt="img"
+        title="img" /></li>
+</ol>
+<h2 id="4安装扩展插件">4.安装扩展插件</h2>
+<p>Jupyter让很多人喜欢的原因在于它提供了丰富的插件，包括显示代码执行时间、生成目录、显示变量名、代码块折叠等各种让你舒适的功能。</p>
+<p>使用插件前，必须要安装扩展nbextensions。</p>
+<p>全程在命令行安装，步骤如下:</p>
+<ol>
+<li>安装nbextensions 执行<code>pip install jupyter_contrib_nbextensions</code>;</li>
+<li>安装javascript and css files 执行<code>jupyter contrib nbextension install --user</code>;</li>
+<li>安装configurator 执行<code>pip install jupyter_nbextensions_configurator</code></li>
+<li>重启 Jupyter Notebook， 能看到nbextension 标签</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2020/11/19/3qtiMGoSPVTzkba.png,  1.5x,  2x"
+        data-src=""
+        alt="img"
+        title="img" /></p>
+<h2 id="conda-常用命令">Conda 常用命令</h2>
+<h2 id="1-获取版本号">1. 获取版本号</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">conda</span> <span class="o">--</span><span class="n">version</span>
+<span class="n">conda</span> <span class="o">-</span><span class="n">V</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="2-获取帮助">2. 获取帮助</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">conda</span> <span class="o">--</span><span class="n">help</span>
+<span class="n">conda</span> <span class="o">-</span><span class="n">h</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>查看某一命令的帮助，如update命令及remove命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">conda</span> <span class="o">--</span><span class="n">help</span> <span class="n">update</span>
+<span class="n">conda</span> <span class="o">--</span><span class="n">help</span> <span class="n">remove</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="3-更新管理">3. 更新管理</h2>
+<p>更新conda，保持conda最新：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">conda</span> <span class="n">update</span> <span class="n">conda</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>更新anaconda</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">conda</span> <span class="n">update</span> <span class="n">anaconda</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>更新Python</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">conda</span> <span class="n">update</span> <span class="n">python</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>假设当前环境是python3.6，conda会将python升级为3.6x系列的当前最新版本</p>
+<h2 id="4-环境管理">4. 环境管理</h2>
+<p>创建新环境</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="s1">&#39;环境名&#39;</span> <span class="n">python</span><span class="o">=</span><span class="s1">&#39;版本号&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>卸载环境</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">conda</span> <span class="n">remove</span> <span class="o">-</span><span class="n">n</span> <span class="s1">&#39;环境名&#39;</span> <span class="o">--</span><span class="nb">all</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>查看所有环境</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">conda</span> <span class="n">info</span> <span class="o">-</span><span class="n">e</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>激活指定环境</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">source</span> <span class="n">activate</span> <span class="s1">&#39;环境名&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>退出当前环境</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">source</span> <span class="n">deactivate</span> 
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="5-包管理">5. 包管理</h2>
+<p>安装包</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">conda</span> <span class="n">install</span> <span class="s1">&#39;包的名字&#39;</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="s1">&#39;包的名字&#39;</span><span class="o">=</span><span class="s1">&#39;版本号&#39;</span>  <span class="n">eg</span><span class="p">:</span> <span class="n">conda</span> <span class="n">install</span> <span class="n">tensorflow</span><span class="o">=</span><span class="mf">1.10</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>更新包</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">conda</span> <span class="n">update</span> <span class="s1">&#39;包的名字&#39;</span>
+<span class="c1">#更新所有包</span>
+<span class="n">conda</span> <span class="n">update</span> <span class="o">--</span><span class="nb">all</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>搜索包(目的是查看可获得的版本)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">conda</span> <span class="n">search</span> <span class="s1">&#39;包的名字&#39;</span> <span class="n">eg</span><span class="p">:</span> <span class="n">conda</span> <span class="n">search</span> <span class="n">tensorflow</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>列出当前环境所有包</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">conda</span> <span class="nb">list</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>查看指定环境所有包</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">conda</span> <span class="nb">list</span> <span class="o">-</span><span class="n">n</span> <span class="s1">&#39;环境名&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>删除环境中的某个包</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">conda</span> <span class="n">remove</span> <span class="o">-</span><span class="n">n</span> <span class="s1">&#39;环境名&#39;</span> <span class="s1">&#39;包的名字&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="踩坑">踩坑</h2>
+<h2 id="问题01-jupyter-notebookkernel-error-已解决">问题01 Jupyter Notebook：kernel error 已解决</h2>
+<h3 id="问题描述">问题描述</h3>
+<p>Jupyter Notebook出现<code>kernel error</code>
+当时用Anaconda安装多个版本的Python的时候，时常由于安装和卸载多次Python导致Juoyter notebook不可用。常常导致如下结果</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="no">File</span><span class="err">”</span><span class="o">//</span><span class="n">anaconda</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python2</span><span class="o">.</span><span class="mi">7</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">jupyter_client</span><span class="o">/</span><span class="n">manager</span><span class="o">.</span><span class="n">py</span><span class="err">”</span><span class="p">,</span> <span class="n">line</span> <span class="mi">190</span><span class="p">,</span> <span class="k">in</span> <span class="n">_launch_kernel</span> 
+<span class="k">return</span> <span class="n">launch_kernel</span><span class="p">(</span><span class="n">kernel_cmd</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span> 
+<span class="no">File</span> <span class="err">“</span><span class="o">//</span><span class="n">anaconda</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python2</span><span class="o">.</span><span class="mi">7</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">jupyter_client</span><span class="o">/</span><span class="n">launcher</span><span class="o">.</span><span class="n">py</span><span class="err">”</span><span class="p">,</span> <span class="n">line</span> <span class="mi">123</span><span class="p">,</span> <span class="k">in</span> <span class="n">launch_kernel</span> 
+<span class="nb">proc</span> <span class="o">=</span> <span class="no">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> 
+<span class="no">File</span> <span class="err">“</span><span class="o">//</span><span class="n">anaconda</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python2</span><span class="o">.</span><span class="mi">7</span><span class="o">/</span><span class="n">subprocess</span><span class="o">.</span><span class="n">py</span><span class="err">”</span><span class="p">,</span> <span class="n">line</span> <span class="mi">710</span><span class="p">,</span> <span class="k">in</span> <span class="n">init</span> 
+<span class="n">errread</span><span class="p">,</span> <span class="n">errwrite</span><span class="p">)</span> 
+<span class="no">File</span> <span class="err">“</span><span class="o">//</span><span class="n">anaconda</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python2</span><span class="o">.</span><span class="mi">7</span><span class="o">/</span><span class="n">subprocess</span><span class="o">.</span><span class="n">py</span><span class="err">”</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1335</span><span class="p">,</span> <span class="k">in</span> <span class="n">_execute_child</span> 
+<span class="k">raise</span> <span class="n">child_exception</span> 
+<span class="ss">OSError</span><span class="p">:</span> <span class="o">[</span><span class="no">Errno</span> <span class="mi">2</span><span class="o">]</span> <span class="no">No</span> <span class="n">such</span> <span class="n">file</span> <span class="ow">or</span> <span class="n">director</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="解决方案">解决方案</h3>
+<ul>
+<li>运行<code>python -m ipykernel install --user</code>重新安装内核</li>
+<li>如果有多个内核，先运行<code>conda create -n python2 python=2</code>，为Python2.7设置Anaconda变量，在Anacoda下使用<code>activate pyhton2</code>切换python环境</li>
+<li>重启jupyter notebook即可</li>
+</ul>
+<h3 id="小技巧">小技巧</h3>
+<p>查看安装的内核和位置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">jupyter kernelspec list
+</code></pre></td></tr></table>
+</div>
+</div><p>进入安装内核目录打开 <strong>kernel.json</strong> 文件，查看Python编译器的路径</p>
+<h2 id="问题02">问题02</h2>
+<h2 id="参考">参考</h2>
+<ol>
+<li>Getting started with conda <a href="https://conda.io/projects/conda/en/latest/user-guide/getting-started.html">https://conda.io/projects/conda/en/latest/user-guide/getting-started.html</a></li>
+<li>Command reference <a href="https://docs.conda.io/projects/conda/en/latest/commands.html">https://docs.conda.io/projects/conda/en/latest/commands.html</a></li>
+<li>Anaconda 镜像使用帮助 <a href="https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/">https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/</a></li>
+<li>Conda常用命令整理 <a href="https://zhengyujie.cn/2257.html">https://zhengyujie.cn/2257.html</a></li>
+<li>Conda 常用命令的整理 <a href="https://morooi.cn/2019/anaconda/">https://morooi.cn/2019/anaconda/</a></li>
+<li></li>
+</ol></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>本文于 2020-11-13 更新</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/anaconda">Anaconda</a>,&nbsp;<a href="/tags/jupyter-notebook">Jupyter Notebook</a></section>
+        <section>
+            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2020-11-13-sql-%E5%8A%9B%E6%89%A3%E7%BB%83%E4%B9%A0/" class="prev" rel="prev" title="SQL 力扣练习"><i class="fas fa-angle-left fa-fw"></i>SQL 力扣练习</a></div>
+</div>
+<div class="comment"></div>
+    </article></div>
+            </main><footer class="footer">
+    <div class="copyright"><div class="copyright-line">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer"><i class="far fa-heart fa-fw"></i> LoveIt</a>
+        </div>
+
+        <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Yang Xu</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+    </div>
+</footer>
+</div><a href="#" class="dynamic-to-top animated faster" id="dynamic-to-top">
+            <i class="fas fa-chevron-up fa-fw"></i>
+        </a><script>
+        document.addEventListener('DOMContentLoaded', function () {
+            lightGallery(document.getElementById('content'), {
+                selector: '.lightgallery',
+                speed: 400,
+                hideBarsDelay: 2000,
+                thumbnail: true,
+                exThumbImage: 'data-thumbnail',
+                thumbWidth: 80,
+                thumbContHeight: 80,
+            });
+        });
+    </script><script>
+        document.addEventListener('DOMContentLoaded', function () {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '\\[', right: '\\]', display: true },{ left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },],
+                strict: false,
+            });
+        });
+    </script><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script src="/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/lightgallery/lightgallery.min.js"></script><script src="/lib/lightgallery/lg-thumbnail.min.js"></script><script src="/lib/lightgallery/lg-zoom.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/auto-render.min.js"></script><script src="/lib/katex/copy-tex.min.js"></script><script src="/lib/katex/mhchem.min.js"></script><script src="/js/theme.min.js"></script></body>
+</html>

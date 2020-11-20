@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SQL on Yang Xu&#39;s Blog</title>
+    <link>https://xy19950225.github.io/tags/sql/</link>
+    <description>Recent content in SQL on Yang Xu&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Fri, 13 Nov 2020 16:30:05 +0800</lastBuildDate><atom:link href="https://xy19950225.github.io/tags/sql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SQL 力扣练习</title>
+      <link>https://xy19950225.github.io/2020-11-13-sql-%E5%8A%9B%E6%89%A3%E7%BB%83%E4%B9%A0/</link>
+      <pubDate>Fri, 13 Nov 2020 16:30:05 +0800</pubDate>
+      
+      <guid>https://xy19950225.github.io/2020-11-13-sql-%E5%8A%9B%E6%89%A3%E7%BB%83%E4%B9%A0/</guid>
+      <description>&lt;p&gt;这篇文章主要整理部分 LeeCode 数据库练习题。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>SQL 窗口函数总结</title>
+      <link>https://xy19950225.github.io/2020-11-13-sql-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Fri, 13 Nov 2020 16:30:05 +0800</pubDate>
+      
+      <guid>https://xy19950225.github.io/2020-11-13-sql-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/</guid>
+      <description>&lt;p&gt;了解如何使用 SQL 窗口函数。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

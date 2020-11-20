@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>SQL 窗口函数总结 | Yang Xu&#39;s Blog
+            
+        </title>
+        <meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="SQL 窗口函数总结" />
+<meta property="og:description" content="了解如何使用 SQL 窗口函数。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xy19950225.github.io/2020-11-13-sql-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/" />
+<meta property="article:published_time" content="2020-11-13T16:30:05+08:00" />
+<meta property="article:modified_time" content="2020-11-13T16:30:05+08:00" /><meta property="og:site_name" content="Yang Xu&#39;s Blog" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SQL 窗口函数总结"/>
+<meta name="twitter:description" content="了解如何使用 SQL 窗口函数。"/>
+<meta name="theme-color" content="#ffffff">
+<meta name="msapplication-TileColor" content="#da532c">
+<link rel="canonical" href="https://xy19950225.github.io/2020-11-13-sql-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://xy19950225.github.io/2020-11-13-%E4%B8%BB%E9%A2%98%E6%96%87%E6%A1%A3-%E5%86%85%E5%AE%B9/" /><link rel="next" href="https://xy19950225.github.io/2020-11-13-sql-%E5%8A%9B%E6%89%A3%E7%BB%83%E4%B9%A0/" /><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><link rel="stylesheet" href="/css/style.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "SQL 窗口函数总结",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/xy19950225.github.io\/2020-11-13-sql-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93\/"
+        },"image": {
+                "@type": "ImageObject",
+                "url": "https:\/\/xy19950225.github.io\/cover.png",
+                "width":  800 ,
+                "height":  600 
+            },"genre": "posts","keywords": "SQL, 窗口函数","wordcount":  4786 ,
+        "url": "https:\/\/xy19950225.github.io\/2020-11-13-sql-%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93\/","datePublished": "2020-11-13","dateModified": "2020-11-13","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","author": {
+                "@type": "Person",
+                "name": "Yang Xu"
+            },"description": ""
+    }
+    </script></head>
+    <body><script>
+            if (!window.localStorage || !window.localStorage.getItem('theme')) {window.isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;} else {
+                window.isDark = (window.localStorage && window.localStorage.getItem('theme')) === 'dark';
+            }
+            window.isDark && document.body.classList.add('dark-theme');
+        </script><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/">Yang Xu&#39;s Blog</a>
+        </div>
+        <div class="menu"><a class="menu-item" href="/posts/" rel="noopener noreffer"><i class='fa fa-home fa-fw' aria-hidden='true'></i>主页</a><a class="menu-item" href="/tags/" rel="noopener noreffer"><i class='fa fa-tag' aria-hidden='true'></i>标签</a><a class="menu-item" href="/categories/" rel="noopener noreffer"><i class='fa fa-book fa-fw' aria-hidden='true'></i>分类</a><a class="menu-item" href="/music/" rel="noopener noreffer"><i class='fa fa-headphones' aria-hidden='true'></i>音乐</a><a class="menu-item" href="/movie/" rel="noopener noreffer"><i class='fa fa-film' aria-hidden='true'></i>电影</a><a class="menu-item" href="/about/" rel="noopener noreffer"><i class='fa fa-cog fa-spin fa-fw' aria-hidden='true'></i>关于</a><a class="menu-item" href="/search/" rel="noopener noreffer"><i class='fas fa-fw fa-search' aria-hidden='true'></i>搜索</a><a class="menu-item" href="https://github.com/xy19950225" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><span class="menu-item">|</span>
+            <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-wrapper">
+        <div class="header-container">
+            <div class="header-title">
+                <a href="/">Yang Xu&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="" rel="noopener noreffer"><i class='fa fa-home fa-fw' aria-hidden='true'></i>主页</a><a class="menu-item" href="/tags/" title="" rel="noopener noreffer"><i class='fa fa-tag' aria-hidden='true'></i>标签</a><a class="menu-item" href="/categories/" title="" rel="noopener noreffer"><i class='fa fa-book fa-fw' aria-hidden='true'></i>分类</a><a class="menu-item" href="/music/" title="" rel="noopener noreffer"><i class='fa fa-headphones' aria-hidden='true'></i>音乐</a><a class="menu-item" href="/movie/" title="" rel="noopener noreffer"><i class='fa fa-film' aria-hidden='true'></i>电影</a><a class="menu-item" href="/about/" title="" rel="noopener noreffer"><i class='fa fa-cog fa-spin fa-fw' aria-hidden='true'></i>关于</a><a class="menu-item" href="/search/" title="" rel="noopener noreffer"><i class='fas fa-fw fa-search' aria-hidden='true'></i>搜索</a><a class="menu-item" href="https://github.com/xy19950225" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+
+<script>
+    window.desktopHeaderMode = "fixed";
+    window.mobileHeaderMode = "auto";
+</script>
+<main class="main">
+                <div class="container"><article class="page single"><h1 class="single-title animated flipInX">SQL 窗口函数总结</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Yang Xu</a>
+</span>&nbsp;
+                    <span class="post-category">收录于<a href="/categories/%E6%8A%80%E6%9C%AF">
+                                <i class="far fa-folder fa-fw"></i>技术
+                            </a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-11-13>2020-11-13</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 4786 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>预计阅读 10 分钟&nbsp;</div>
+        </div><div class="toc" id="toc-auto">
+                <h2 class="toc-title">目录</h2>
+                <div class="toc-content" id="toc-content-auto"></div>
+            </div>
+            <div class="toc" id="toc-static">
+                <details>
+                    <summary>
+                        <div class="toc-title">
+                            <span>目录</span>
+                            <span><i class="details icon fas fa-angle-down"></i></span>
+                        </div>
+                    </summary>
+                    <div class="toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-窗口函数的简介">1. 窗口函数的简介</a></li>
+    <li><a href="#2-窗口函数的语法">2. 窗口函数的语法</a></li>
+    <li><a href="#3-窗口函数的类型">3. 窗口函数的类型</a>
+      <ul>
+        <li><a href="#31-聚合窗口函数">3.1 聚合窗口函数</a></li>
+        <li><a href="#32-排名窗口函数">3.2 排名窗口函数</a></li>
+        <li><a href="#33-mysql-支持的窗口函数">3.3 MySQL 支持的窗口函数</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-窗口函数的应用场景">4. 窗口函数的应用场景</a>
+      <ul>
+        <li><a href="#40-数据准备">4.0 数据准备</a></li>
+        <li><a href="#41-需求1收入增长">4.1 需求1：收入增长</a></li>
+        <li><a href="#42-需求2累计求和">4.2 需求2：累计求和</a></li>
+        <li><a href="#43-需求3处理重复数据">4.3 需求3：处理重复数据</a></li>
+        <li><a href="#44-需求4分组取topn">4.4 需求4：分组取TopN</a></li>
+        <li><a href="#45-需求5重复购买行为">4.5 需求5：重复购买行为</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-参考">5. 参考</a></li>
+  </ul>
+</nav></div>
+                </details>
+            </div><div class="content" id="content"><p>了解如何使用 SQL 窗口函数。</p>
+<div class="details admonition 更新说明 open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw"></i>更新说明<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>2020-10-10 新增 <a href="https://jiamaoxiang.top/2020/09/07/%E4%BD%BF%E7%94%A8Hive-SQL%E7%9A%84%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E8%BF%9B%E8%A1%8C%E5%95%86%E5%8A%A1%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" target="_blank" rel="noopener noreffer">使用 Hive SQL 的窗口函数进行商务数据分析</a>
+</p>
+<p>2020-10-01 新增 <a href="https://tding.top/archives/c6e31643.html" target="_blank" rel="noopener noreffer">MySQL 窗口函数</a>
+</p>
+<p>2020-10-01 修订 部分文字和排版</p>
+</div>
+        </div>
+    </div>
+<h2 id="1-窗口函数的简介">1. 窗口函数的简介</h2>
+<p><strong>窗口函数</strong>是为了实现 OLAP 而添加的标准 SQL 功能，也称为 OLAP 函数（OnLine Analytical Processing 的简称，指 <a href="https://zh.wikipedia.org/wiki/%E7%B7%9A%E4%B8%8A%E5%88%86%E6%9E%90%E8%99%95%E7%90%86" target="_blank" rel="noopener noreffer"><strong>联机分析处理</strong></a>
+ ），其作用是将表以窗口为单位进行分割，并在其中进行排序。</p>
+<p>😘<strong>注意</strong>：从 <strong>MySQL 8.0</strong> 开始支持窗口函数。</p>
+<p>窗口函数和普通聚合函数很容易混淆，二者区别如下：</p>
+<ul>
+<li><strong>聚合函数是将多条记录聚合为一条；而窗口函数是每条记录都会执行，有几条记录执行完还是几条</strong>。</li>
+<li>聚合函数也可以用于窗口函数中。</li>
+</ul>
+<h2 id="2-窗口函数的语法">2. 窗口函数的语法</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="o">#</span> <span class="p">[]</span> <span class="err">中的内容可以省略</span>
+<span class="o">&lt;</span><span class="err">窗口函数</span><span class="o">&gt;</span> <span class="n">OVER</span> <span class="p">([</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="o">&lt;</span><span class="err">列清单</span><span class="o">&gt;</span><span class="p">]</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="o">&lt;</span><span class="err">排序用列清单</span><span class="o">&gt;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>小结：窗口函数兼具分组和排序两种功能，通过 <code>PARTITION BY</code> 分组后的记录集合称为“窗口”，<code>PARTITION BY</code> 设定排序的对象范围，<code>ORDER BY</code> 指定按照哪一列、何种顺序进行排序。</p>
+<p>说明： PARTITION BY 和 GROUP BY 的区别 ？</p>
+<p><code>PARTITION BY</code> 返回分组里的每一行数据，<code>GROUP BY</code> 返回分组里的仅一行数据</p>
+<h2 id="3-窗口函数的类型">3. 窗口函数的类型</h2>
+<p>一般按照功能划分可将窗口函数分为聚合窗口函数和专门窗口函数（如排名窗口函数）。</p>
+<h3 id="31-聚合窗口函数">3.1 聚合窗口函数</h3>
+<blockquote>
+<p>以<strong>当前记录</strong>作为基准进行<strong>累计</strong>，是聚合窗口函数的最大特征</p>
+</blockquote>
+<p>指定 “最靠近的 3 行” 作为汇总对象，输入以下测试代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="o">#</span> <span class="err">指定</span> <span class="err">“最靠近的</span> <span class="mi">3</span> <span class="err">行”</span> <span class="err">作为汇总对象</span>
+<span class="k">SELECT</span> <span class="n">product_id</span><span class="p">,</span> <span class="n">product_name</span><span class="p">,</span> <span class="n">sale_price</span><span class="p">,</span>
+	<span class="k">AVG</span> <span class="p">(</span><span class="n">sale_price</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">ORDER</span> <span class="k">BY</span> <span class="n">product_id</span> <span class="k">ROWS</span> <span class="mi">2</span> <span class="n">PRECEDING</span><span class="p">)</span> <span class="k">AS</span> <span class="n">moving_avg</span>
+<span class="k">FROM</span> <span class="n">Product</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>其结果输出：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">product_id</th>
+<th style="text-align:center">product_name</th>
+<th style="text-align:center">sale_price</th>
+<th style="text-align:center">moving_avg</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0001</td>
+<td style="text-align:center">T恤衫</td>
+<td style="text-align:center">1000</td>
+<td style="text-align:center">1000</td>
+</tr>
+<tr>
+<td style="text-align:center">0002</td>
+<td style="text-align:center">打孔器</td>
+<td style="text-align:center">500</td>
+<td style="text-align:center">750</td>
+</tr>
+<tr>
+<td style="text-align:center">0003</td>
+<td style="text-align:center">运动T恤</td>
+<td style="text-align:center">4000</td>
+<td style="text-align:center">1833</td>
+</tr>
+<tr>
+<td style="text-align:center">0004</td>
+<td style="text-align:center">菜刀</td>
+<td style="text-align:center">3000</td>
+<td style="text-align:center">2500</td>
+</tr>
+<tr>
+<td style="text-align:center">0005</td>
+<td style="text-align:center">高压锅</td>
+<td style="text-align:center">6800</td>
+<td style="text-align:center">4600</td>
+</tr>
+<tr>
+<td style="text-align:center">0006</td>
+<td style="text-align:center">叉子</td>
+<td style="text-align:center">500</td>
+<td style="text-align:center">3433</td>
+</tr>
+<tr>
+<td style="text-align:center">0007</td>
+<td style="text-align:center">擦菜板</td>
+<td style="text-align:center">880</td>
+<td style="text-align:center">2726</td>
+</tr>
+<tr>
+<td style="text-align:center">0008</td>
+<td style="text-align:center">圆珠笔</td>
+<td style="text-align:center">100</td>
+<td style="text-align:center">493</td>
+</tr>
+</tbody>
+</table>
+<p>将当前记录的前后行作为汇总对象，SQL 语句如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="o">#</span> <span class="err">将当前记录的前后行作为汇总对象</span>
+<span class="k">SELECT</span> <span class="n">product_id</span><span class="p">,</span> <span class="n">product_name</span><span class="p">,</span> <span class="n">sale_price</span><span class="p">,</span>
+	<span class="k">AVG</span><span class="p">(</span><span class="n">sale_price</span><span class="p">)</span> <span class="n">OVER</span><span class="p">(</span><span class="k">ORDER</span> <span class="k">BY</span> <span class="n">product_id</span> 
+	<span class="k">ROWS</span> <span class="k">BETWEEN</span> <span class="mi">1</span> <span class="n">PRECEDING</span> <span class="k">AND</span> <span class="mi">1</span> <span class="n">FOLLOWING</span><span class="p">)</span> <span class="k">AS</span> <span class="n">moving_avg</span> 
+<span class="k">FROM</span> <span class="n">Product</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>输出结果：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">product_id</th>
+<th style="text-align:center">product_name</th>
+<th style="text-align:center">sale_price</th>
+<th style="text-align:center">moving_avg</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0001</td>
+<td style="text-align:center">T恤衫</td>
+<td style="text-align:center">1000</td>
+<td style="text-align:center">750</td>
+</tr>
+<tr>
+<td style="text-align:center">0002</td>
+<td style="text-align:center">打孔器</td>
+<td style="text-align:center">500</td>
+<td style="text-align:center">1833</td>
+</tr>
+<tr>
+<td style="text-align:center">0003</td>
+<td style="text-align:center">运动T恤</td>
+<td style="text-align:center">4000</td>
+<td style="text-align:center">2500</td>
+</tr>
+<tr>
+<td style="text-align:center">0004</td>
+<td style="text-align:center">菜刀</td>
+<td style="text-align:center">3000</td>
+<td style="text-align:center">4600</td>
+</tr>
+<tr>
+<td style="text-align:center">0005</td>
+<td style="text-align:center">高压锅</td>
+<td style="text-align:center">6800</td>
+<td style="text-align:center">3433</td>
+</tr>
+<tr>
+<td style="text-align:center">0006</td>
+<td style="text-align:center">叉子</td>
+<td style="text-align:center">500</td>
+<td style="text-align:center">2726</td>
+</tr>
+<tr>
+<td style="text-align:center">0007</td>
+<td style="text-align:center">擦菜板</td>
+<td style="text-align:center">880</td>
+<td style="text-align:center">493</td>
+</tr>
+<tr>
+<td style="text-align:center">0008</td>
+<td style="text-align:center">圆珠笔</td>
+<td style="text-align:center">100</td>
+<td style="text-align:center">490</td>
+</tr>
+</tbody>
+</table>
+<p>😀说明：<code>ROWS</code> 指定框架，<code>PRECEDING</code> 将框架指定为“截止到之<strong>前</strong> ~ 行”，<code>FOLLOWING</code>  将框架指定为“截止到之<strong>后</strong> ~ 行”</p>
+<h3 id="32-排名窗口函数">3.2 排名窗口函数</h3>
+<p>排名窗口函数测试代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">product_name</span><span class="p">,</span> <span class="n">product_type</span><span class="p">,</span> <span class="n">sale_price</span><span class="p">,</span>
+	<span class="n">RANK</span> <span class="p">()</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">ORDER</span> <span class="k">BY</span> <span class="n">sale_price</span><span class="p">)</span> <span class="k">AS</span> <span class="n">ranking</span><span class="p">,</span>
+	<span class="n">DENSE_RANK</span> <span class="p">()</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">ORDER</span> <span class="k">BY</span> <span class="n">sale_price</span><span class="p">)</span> <span class="k">AS</span> <span class="n">dense_ranking</span><span class="p">,</span>
+	<span class="n">ROW_NUMBER</span> <span class="p">()</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">ORDER</span> <span class="k">BY</span> <span class="n">sale_price</span><span class="p">)</span> <span class="k">AS</span> <span class="n">row_num</span>
+<span class="k">FROM</span> <span class="n">Product</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>结果输出：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">product_name</th>
+<th style="text-align:center">product_type</th>
+<th style="text-align:center">sale_price</th>
+<th style="text-align:center">ranking</th>
+<th style="text-align:center">dense_ranking</th>
+<th style="text-align:center">row_num</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">圆珠笔</td>
+<td style="text-align:center">办公用品</td>
+<td style="text-align:center">100</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">叉子</td>
+<td style="text-align:center">厨房用具</td>
+<td style="text-align:center">500</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">打孔器</td>
+<td style="text-align:center">办公用品</td>
+<td style="text-align:center">500</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">3</td>
+</tr>
+<tr>
+<td style="text-align:center">擦菜板</td>
+<td style="text-align:center">厨房用具</td>
+<td style="text-align:center">880</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">4</td>
+</tr>
+<tr>
+<td style="text-align:center">T恤衫</td>
+<td style="text-align:center">衣服</td>
+<td style="text-align:center">1000</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">5</td>
+</tr>
+<tr>
+<td style="text-align:center">菜刀</td>
+<td style="text-align:center">厨房用具</td>
+<td style="text-align:center">3000</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">6</td>
+</tr>
+<tr>
+<td style="text-align:center">运动T恤</td>
+<td style="text-align:center">衣服</td>
+<td style="text-align:center">4000</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">7</td>
+</tr>
+<tr>
+<td style="text-align:center">高压锅</td>
+<td style="text-align:center">厨房用具</td>
+<td style="text-align:center">6800</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">8</td>
+</tr>
+</tbody>
+</table>
+<h3 id="33-mysql-支持的窗口函数">3.3 MySQL 支持的窗口函数</h3>
+<p>按照功能划分，可以把 MySQL 支持的窗口函数分为如下几类：</p>
+<ul>
+<li>序号函数：row_number () /rank () /dense_rank ()</li>
+<li>分布函数：percent_rank () /cume_dist ()</li>
+<li>前后函数：lag () /lead ()</li>
+<li>头尾函数：first_val () /last_val ()</li>
+<li>其他函数：nth_value () /nfile ()</li>
+</ul>
+<p>分布函数 cume_dist ()</p>
+<p>用途：分组内大于等于当前 rank 值的行数 / 分组内总行数。</p>
+<p>应用场景：大于等于当前订单金额的订单比例有多少。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">select</span> 
+<span class="n">rank</span><span class="p">()</span> <span class="n">over</span> <span class="n">w</span> <span class="k">as</span> <span class="n">row_num</span><span class="p">,</span>
+<span class="n">cume_dist</span><span class="p">()</span> <span class="n">over</span> <span class="n">w</span> <span class="k">as</span> <span class="n">percent</span><span class="p">,</span>
+<span class="n">order_id</span><span class="p">,</span><span class="n">user_no</span><span class="p">,</span><span class="n">amount</span><span class="p">,</span><span class="n">create_date</span>
+<span class="k">from</span> <span class="n">order_info</span>
+<span class="n">window</span> <span class="n">w</span> <span class="k">as</span> <span class="p">(</span><span class="n">partition</span> <span class="k">by</span> <span class="n">user_no</span> <span class="k">order</span> <span class="k">by</span> <span class="n">amount</span> <span class="k">desc</span><span class="p">);</span>
+<span class="o">+</span><span class="c1">---------+---------+----------+---------+--------+---------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">row_num</span> <span class="o">|</span> <span class="n">percent</span> <span class="o">|</span> <span class="n">order_id</span> <span class="o">|</span> <span class="n">user_no</span> <span class="o">|</span> <span class="n">amount</span> <span class="o">|</span> <span class="n">create_date</span>         <span class="o">|</span>
+<span class="o">+</span><span class="c1">---------+---------+----------+---------+--------+---------------------+
+</span><span class="c1"></span><span class="o">|</span>       <span class="mi">1</span> <span class="o">|</span>     <span class="mi">0</span><span class="p">.</span><span class="mi">2</span> <span class="o">|</span>        <span class="mi">5</span> <span class="o">|</span> <span class="n">u0001</span>   <span class="o">|</span>    <span class="mi">900</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">20</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span>
+<span class="o">|</span>       <span class="mi">2</span> <span class="o">|</span>     <span class="mi">0</span><span class="p">.</span><span class="mi">4</span> <span class="o">|</span>        <span class="mi">4</span> <span class="o">|</span> <span class="n">u0001</span>   <span class="o">|</span>    <span class="mi">800</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">10</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span>
+<span class="o">|</span>       <span class="mi">3</span> <span class="o">|</span>     <span class="mi">0</span><span class="p">.</span><span class="mi">8</span> <span class="o">|</span>        <span class="mi">2</span> <span class="o">|</span> <span class="n">u0001</span>   <span class="o">|</span>    <span class="mi">300</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">02</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span>
+<span class="o">|</span>       <span class="mi">3</span> <span class="o">|</span>     <span class="mi">0</span><span class="p">.</span><span class="mi">8</span> <span class="o">|</span>        <span class="mi">3</span> <span class="o">|</span> <span class="n">u0001</span>   <span class="o">|</span>    <span class="mi">300</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">02</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span>
+<span class="o">|</span>       <span class="mi">5</span> <span class="o">|</span>       <span class="mi">1</span> <span class="o">|</span>        <span class="mi">1</span> <span class="o">|</span> <span class="n">u0001</span>   <span class="o">|</span>    <span class="mi">100</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span>
+<span class="o">|</span>       <span class="mi">1</span> <span class="o">|</span>     <span class="mi">0</span><span class="p">.</span><span class="mi">4</span> <span class="o">|</span>        <span class="mi">9</span> <span class="o">|</span> <span class="n">u0002</span>   <span class="o">|</span>    <span class="mi">800</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">16</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span>
+<span class="o">|</span>       <span class="mi">1</span> <span class="o">|</span>     <span class="mi">0</span><span class="p">.</span><span class="mi">4</span> <span class="o">|</span>       <span class="mi">10</span> <span class="o">|</span> <span class="n">u0002</span>   <span class="o">|</span>    <span class="mi">800</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">22</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span>
+<span class="o">|</span>       <span class="mi">3</span> <span class="o">|</span>     <span class="mi">0</span><span class="p">.</span><span class="mi">6</span> <span class="o">|</span>        <span class="mi">7</span> <span class="o">|</span> <span class="n">u0002</span>   <span class="o">|</span>    <span class="mi">600</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">06</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span>
+<span class="o">|</span>       <span class="mi">4</span> <span class="o">|</span>     <span class="mi">0</span><span class="p">.</span><span class="mi">8</span> <span class="o">|</span>        <span class="mi">6</span> <span class="o">|</span> <span class="n">u0002</span>   <span class="o">|</span>    <span class="mi">500</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">05</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span>
+<span class="o">|</span>       <span class="mi">5</span> <span class="o">|</span>       <span class="mi">1</span> <span class="o">|</span>        <span class="mi">8</span> <span class="o">|</span> <span class="n">u0002</span>   <span class="o">|</span>    <span class="mi">300</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">10</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">---------+---------+----------+---------+--------+---------------------+
+</span></code></pre></td></tr></table>
+</div>
+</div><p>前后函数 lag ()、lead ()</p>
+<p>用途：</p>
+<ul>
+<li>lag (column,n) 获取当前数据行按照某种排序规则的上 n 行数据的某个字段</li>
+<li>lead (column,n) 获取当前数据行按照某种排序规则的下 n 行数据的某个字段</li>
+</ul>
+<p>应用场景：按照时间排序，获取当前订单的上一笔订单发生时间和下一笔订单发生时间，（可以计算订单的时间上的间隔度或者说买买买的频繁程度）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">select</span> 
+<span class="n">order_id</span><span class="p">,</span><span class="n">user_no</span><span class="p">,</span><span class="n">amount</span><span class="p">,</span><span class="n">create_date</span><span class="p">,</span>
+<span class="n">lag</span><span class="p">(</span><span class="n">create_date</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="n">over</span> <span class="n">w</span> <span class="s1">&#39;last_transaction_time&#39;</span><span class="p">,</span>
+<span class="n">lead</span><span class="p">(</span><span class="n">create_date</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="n">over</span> <span class="n">w</span> <span class="s1">&#39;next_transaction_time&#39;</span>
+<span class="k">from</span> <span class="n">order_info</span>
+<span class="n">window</span> <span class="n">w</span> <span class="k">as</span> <span class="p">(</span><span class="n">partition</span> <span class="k">by</span> <span class="n">user_no</span> <span class="k">order</span> <span class="k">by</span> <span class="n">create_date</span> <span class="k">asc</span><span class="p">);</span>
+<span class="o">+</span><span class="c1">----------+---------+--------+---------------------+-----------------------+-----------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">order_id</span> <span class="o">|</span> <span class="n">user_no</span> <span class="o">|</span> <span class="n">amount</span> <span class="o">|</span> <span class="n">create_date</span>         <span class="o">|</span> <span class="n">last_transaction_time</span> <span class="o">|</span> <span class="n">next_transaction_time</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----------+---------+--------+---------------------+-----------------------+-----------------------+
+</span><span class="c1"></span><span class="o">|</span>        <span class="mi">1</span> <span class="o">|</span> <span class="n">u0001</span>   <span class="o">|</span>    <span class="mi">100</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="k">NULL</span>                  <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">02</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">2</span> <span class="o">|</span> <span class="n">u0001</span>   <span class="o">|</span>    <span class="mi">300</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">02</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">02</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">3</span> <span class="o">|</span> <span class="n">u0001</span>   <span class="o">|</span>    <span class="mi">300</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">02</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">02</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">10</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">4</span> <span class="o">|</span> <span class="n">u0001</span>   <span class="o">|</span>    <span class="mi">800</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">10</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">02</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">20</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">5</span> <span class="o">|</span> <span class="n">u0001</span>   <span class="o">|</span>    <span class="mi">900</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">20</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">10</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span> <span class="k">NULL</span>                  <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">6</span> <span class="o">|</span> <span class="n">u0002</span>   <span class="o">|</span>    <span class="mi">500</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">05</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="k">NULL</span>                  <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">06</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">7</span> <span class="o">|</span> <span class="n">u0002</span>   <span class="o">|</span>    <span class="mi">600</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">06</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">05</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">10</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">8</span> <span class="o">|</span> <span class="n">u0002</span>   <span class="o">|</span>    <span class="mi">300</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">10</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">06</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">16</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">9</span> <span class="o">|</span> <span class="n">u0002</span>   <span class="o">|</span>    <span class="mi">800</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">16</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">10</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">22</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">|</span>       <span class="mi">10</span> <span class="o">|</span> <span class="n">u0002</span>   <span class="o">|</span>    <span class="mi">800</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">22</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">16</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span> <span class="k">NULL</span>                  <span class="o">|</span>
+<span class="o">+</span><span class="c1">----------+---------+--------+---------------------+-----------------------+-----------------------+
+</span></code></pre></td></tr></table>
+</div>
+</div><p>头尾函数 first_value ()、last_value ()</p>
+<p>用途：头尾函数可以得到分区中的第一个 / 最后一个指定参数的值。</p>
+<p>应用场景：查询截止到当前订单，按照日期排序第一个订单和最后一个订单的订单金额。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">select</span> 
+<span class="n">order_id</span><span class="p">,</span><span class="n">user_no</span><span class="p">,</span><span class="n">amount</span><span class="p">,</span><span class="n">create_date</span><span class="p">,</span>
+<span class="n">first_value</span><span class="p">(</span><span class="n">create_date</span><span class="p">)</span> <span class="n">over</span> <span class="n">w</span> <span class="s1">&#39;first_transaction_time&#39;</span><span class="p">,</span>
+<span class="n">last_value</span><span class="p">(</span><span class="n">create_date</span><span class="p">)</span> <span class="n">over</span> <span class="n">w</span> <span class="s1">&#39;last_transaction_time&#39;</span>
+<span class="k">from</span> <span class="n">order_info</span>
+<span class="n">window</span> <span class="n">w</span> <span class="k">as</span> <span class="p">(</span><span class="n">partition</span> <span class="k">by</span> <span class="n">user_no</span> <span class="k">order</span> <span class="k">by</span> <span class="n">create_date</span> <span class="k">asc</span><span class="p">);</span>
+<span class="o">+</span><span class="c1">----------+---------+--------+---------------------+------------------------+-----------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">order_id</span> <span class="o">|</span> <span class="n">user_no</span> <span class="o">|</span> <span class="n">amount</span> <span class="o">|</span> <span class="n">create_date</span>         <span class="o">|</span> <span class="n">first_transaction_time</span> <span class="o">|</span> <span class="n">last_transaction_time</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----------+---------+--------+---------------------+------------------------+-----------------------+
+</span><span class="c1"></span><span class="o">|</span>        <span class="mi">1</span> <span class="o">|</span> <span class="n">u0001</span>   <span class="o">|</span>    <span class="mi">100</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>    <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">2</span> <span class="o">|</span> <span class="n">u0001</span>   <span class="o">|</span>    <span class="mi">300</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">02</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>    <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">02</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">3</span> <span class="o">|</span> <span class="n">u0001</span>   <span class="o">|</span>    <span class="mi">300</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">02</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>    <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">02</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">4</span> <span class="o">|</span> <span class="n">u0001</span>   <span class="o">|</span>    <span class="mi">800</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">10</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>    <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">10</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">5</span> <span class="o">|</span> <span class="n">u0001</span>   <span class="o">|</span>    <span class="mi">900</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">20</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>    <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">20</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">6</span> <span class="o">|</span> <span class="n">u0002</span>   <span class="o">|</span>    <span class="mi">500</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">05</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">05</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>    <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">05</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">7</span> <span class="o">|</span> <span class="n">u0002</span>   <span class="o">|</span>    <span class="mi">600</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">06</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">05</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>    <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">06</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">8</span> <span class="o">|</span> <span class="n">u0002</span>   <span class="o">|</span>    <span class="mi">300</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">10</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">05</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>    <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">10</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">9</span> <span class="o">|</span> <span class="n">u0002</span>   <span class="o">|</span>    <span class="mi">800</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">16</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">05</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>    <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">16</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">|</span>       <span class="mi">10</span> <span class="o">|</span> <span class="n">u0002</span>   <span class="o">|</span>    <span class="mi">800</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">22</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">05</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>    <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">22</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">+</span><span class="c1">----------+---------+--------+---------------------+------------------------+-----------------------+
+</span></code></pre></td></tr></table>
+</div>
+</div><p>😱注意：如果不加 <code>order by</code>, 就没有窗口，计算范围是整个分区；如果加上 <code>order by</code>, 默认窗口是 <code>range between unbounded preceding and current row</code>，就是排序后从分区第一行一直到当前行为止。</p>
+<p>由于我们需要求的是每个用户的第一个和最后一个订单，所以这里要指定窗口：从第一行 <code>unbounded preceding</code> 到最后一行 <code>unbounded following</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">select</span> 
+<span class="n">order_id</span><span class="p">,</span><span class="n">user_no</span><span class="p">,</span><span class="n">amount</span><span class="p">,</span><span class="n">create_date</span><span class="p">,</span>
+<span class="n">first_value</span><span class="p">(</span><span class="n">create_date</span><span class="p">)</span> <span class="n">over</span> <span class="n">w</span> <span class="s1">&#39;first_transaction_time&#39;</span><span class="p">,</span>
+<span class="n">last_value</span><span class="p">(</span><span class="n">create_date</span><span class="p">)</span> <span class="n">over</span> <span class="n">w</span> <span class="s1">&#39;last_transaction_time&#39;</span>
+<span class="k">from</span> <span class="n">order_info</span>
+<span class="n">window</span> <span class="n">w</span> <span class="k">as</span> <span class="p">(</span><span class="n">partition</span> <span class="k">by</span> <span class="n">user_no</span> <span class="k">order</span> <span class="k">by</span> <span class="n">create_date</span> <span class="k">asc</span> <span class="k">rows</span> <span class="k">between</span> <span class="n">unbounded</span> <span class="n">preceding</span> <span class="k">and</span> <span class="n">unbounded</span> <span class="n">following</span><span class="p">);</span>
+<span class="o">+</span><span class="c1">----------+---------+--------+---------------------+------------------------+-----------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">order_id</span> <span class="o">|</span> <span class="n">user_no</span> <span class="o">|</span> <span class="n">amount</span> <span class="o">|</span> <span class="n">create_date</span>         <span class="o">|</span> <span class="n">first_transaction_time</span> <span class="o">|</span> <span class="n">last_transaction_time</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----------+---------+--------+---------------------+------------------------+-----------------------+
+</span><span class="c1"></span><span class="o">|</span>        <span class="mi">1</span> <span class="o">|</span> <span class="n">u0001</span>   <span class="o">|</span>    <span class="mi">100</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>    <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">20</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">2</span> <span class="o">|</span> <span class="n">u0001</span>   <span class="o">|</span>    <span class="mi">300</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">02</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>    <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">20</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">3</span> <span class="o">|</span> <span class="n">u0001</span>   <span class="o">|</span>    <span class="mi">300</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">02</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>    <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">20</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">4</span> <span class="o">|</span> <span class="n">u0001</span>   <span class="o">|</span>    <span class="mi">800</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">10</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>    <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">20</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">5</span> <span class="o">|</span> <span class="n">u0001</span>   <span class="o">|</span>    <span class="mi">900</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">20</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>    <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">20</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">6</span> <span class="o">|</span> <span class="n">u0002</span>   <span class="o">|</span>    <span class="mi">500</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">05</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">05</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>    <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">22</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">7</span> <span class="o">|</span> <span class="n">u0002</span>   <span class="o">|</span>    <span class="mi">600</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">06</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">05</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>    <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">22</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">8</span> <span class="o">|</span> <span class="n">u0002</span>   <span class="o">|</span>    <span class="mi">300</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">10</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">05</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>    <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">22</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">|</span>        <span class="mi">9</span> <span class="o">|</span> <span class="n">u0002</span>   <span class="o">|</span>    <span class="mi">800</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">16</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">05</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>    <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">22</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">|</span>       <span class="mi">10</span> <span class="o">|</span> <span class="n">u0002</span>   <span class="o">|</span>    <span class="mi">800</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">22</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">05</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>    <span class="o">|</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">22</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="o">|</span>
+<span class="o">+</span><span class="c1">----------+---------+--------+---------------------+------------------------+-----------------------+
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="4-窗口函数的应用场景">4. 窗口函数的应用场景</h2>
+<p>下面这篇文章转载自 <a href="https://jiamaoxiang.top/" target="_blank" rel="noopener noreffer">Jmx&rsquo;s Blog</a>
+，原文链接： <a href="https://jiamaoxiang.top/2020/09/07/%E4%BD%BF%E7%94%A8Hive-SQL%E7%9A%84%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E8%BF%9B%E8%A1%8C%E5%95%86%E5%8A%A1%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" target="_blank" rel="noopener noreffer">使用Hive SQL的窗口函数进行商务数据分析</a>
+ 。</p>
+<p>这篇文章从一个商务分析案例入手，说明 SQL 窗口函数的使用方式。</p>
+<p>通过本文的 5 个需求分析，可以看出 SQL 窗口函数的功能十分强大，不仅能够使我们编写的 SQL 逻辑更加清晰，而且在某种程度上可以简化需求开发。</p>
+<p>转载时，做了一些文字和格式上的修订。</p>
+<blockquote>
+<p>使用 Hive SQL 的窗口函数进行商务数据分析 <a href="https://jiamaoxiang.top/2020/09/07/%E4%BD%BF%E7%94%A8Hive-SQL%E7%9A%84%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E8%BF%9B%E8%A1%8C%E5%95%86%E5%8A%A1%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" target="_blank" rel="noopener noreffer">Jmx&rsquo;s Blog</a>
+</p>
+</blockquote>
+<h3 id="40-数据准备">4.0 数据准备</h3>
+<p>本文主要分析只涉及一张订单表 orders，操作过程在 Hive 中完成，具体数据如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- 建表
+</span><span class="c1"></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">orders</span><span class="p">(</span>
+    <span class="n">order_id</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">customer_id</span> <span class="n">string</span><span class="p">,</span>
+    <span class="n">city</span> <span class="n">string</span><span class="p">,</span>
+    <span class="n">add_time</span> <span class="n">string</span><span class="p">,</span>
+    <span class="n">amount</span> <span class="nb">decimal</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">));</span>
+
+<span class="c1">-- 准备数据                              
+</span><span class="c1"></span><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">orders</span> <span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s2">&#34;A&#34;</span><span class="p">,</span><span class="s2">&#34;上海&#34;</span><span class="p">,</span><span class="s2">&#34;2020-01-01 00:00:00.000000&#34;</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s2">&#34;B&#34;</span><span class="p">,</span><span class="s2">&#34;上海&#34;</span><span class="p">,</span><span class="s2">&#34;2020-01-05 00:00:00.000000&#34;</span><span class="p">,</span><span class="mi">250</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="s2">&#34;C&#34;</span><span class="p">,</span><span class="s2">&#34;北京&#34;</span><span class="p">,</span><span class="s2">&#34;2020-01-12 00:00:00.000000&#34;</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="s2">&#34;A&#34;</span><span class="p">,</span><span class="s2">&#34;上海&#34;</span><span class="p">,</span><span class="s2">&#34;2020-02-04 00:00:00.000000&#34;</span><span class="p">,</span><span class="mi">400</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="s2">&#34;D&#34;</span><span class="p">,</span><span class="s2">&#34;上海&#34;</span><span class="p">,</span><span class="s2">&#34;2020-02-05 00:00:00.000000&#34;</span><span class="p">,</span><span class="mi">250</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="s2">&#34;D&#34;</span><span class="p">,</span><span class="s2">&#34;上海&#34;</span><span class="p">,</span><span class="s2">&#34;2020-02-05 12:00:00.000000&#34;</span><span class="p">,</span><span class="mi">300</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="s2">&#34;C&#34;</span><span class="p">,</span><span class="s2">&#34;北京&#34;</span><span class="p">,</span><span class="s2">&#34;2020-02-19 00:00:00.000000&#34;</span><span class="p">,</span><span class="mi">300</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="s2">&#34;A&#34;</span><span class="p">,</span><span class="s2">&#34;上海&#34;</span><span class="p">,</span><span class="s2">&#34;2020-03-01 00:00:00.000000&#34;</span><span class="p">,</span><span class="mi">150</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="s2">&#34;E&#34;</span><span class="p">,</span><span class="s2">&#34;北京&#34;</span><span class="p">,</span><span class="s2">&#34;2020-03-05 00:00:00.000000&#34;</span><span class="p">,</span><span class="mi">500</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="s2">&#34;F&#34;</span><span class="p">,</span><span class="s2">&#34;上海&#34;</span><span class="p">,</span><span class="s2">&#34;2020-03-09 00:00:00.000000&#34;</span><span class="p">,</span><span class="mi">250</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="s2">&#34;B&#34;</span><span class="p">,</span><span class="s2">&#34;上海&#34;</span><span class="p">,</span><span class="s2">&#34;2020-03-21 00:00:00.000000&#34;</span><span class="p">,</span><span class="mi">600</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="41-需求1收入增长">4.1 需求1：收入增长</h3>
+<p>在业务方面，第 m1 个月的收入增长计算如下：<strong>100 *（m1-m0）/ m0</strong></p>
+<p>其中，m1 是给定月份的收入，m0 是上个月的收入。因此，从技术上讲，我们需要找到每个月的收入，然后以某种方式将每个月的收入与上一个收入相关联，以便进行上述计算。计算当时如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">WITH</span>
+<span class="n">monthly_revenue</span> <span class="k">as</span> <span class="p">(</span>
+    <span class="k">SELECT</span>
+    <span class="n">trunc</span><span class="p">(</span><span class="n">add_time</span><span class="p">,</span><span class="s1">&#39;MM&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="k">month</span><span class="p">,</span>
+    <span class="k">sum</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span> <span class="k">as</span> <span class="n">revenue</span>
+    <span class="k">FROM</span> <span class="n">orders</span>
+    <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span>
+<span class="p">)</span>
+<span class="p">,</span><span class="n">prev_month_revenue</span> <span class="k">as</span> <span class="p">(</span>
+    <span class="k">SELECT</span> 
+    <span class="k">month</span><span class="p">,</span>
+    <span class="n">revenue</span><span class="p">,</span>
+    <span class="n">lag</span><span class="p">(</span><span class="n">revenue</span><span class="p">)</span> <span class="n">over</span> <span class="p">(</span><span class="k">order</span> <span class="k">by</span> <span class="k">month</span><span class="p">)</span> <span class="k">as</span> <span class="n">prev_month_revenue</span> <span class="c1">-- 上一月收入
+</span><span class="c1"></span>    <span class="k">FROM</span> <span class="n">monthly_revenue</span>
+<span class="p">)</span>
+<span class="k">SELECT</span> 
+  <span class="k">month</span><span class="p">,</span>
+  <span class="n">revenue</span><span class="p">,</span>
+  <span class="n">prev_month_revenue</span><span class="p">,</span>
+  <span class="n">round</span><span class="p">(</span><span class="mi">100</span><span class="p">.</span><span class="mi">0</span><span class="o">*</span><span class="p">(</span><span class="n">revenue</span><span class="o">-</span><span class="n">prev_month_revenue</span><span class="p">)</span><span class="o">/</span><span class="n">prev_month_revenue</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="k">as</span> <span class="n">revenue_growth</span>
+<span class="k">FROM</span> <span class="n">prev_month_revenue</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>结果输出：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">month</th>
+<th style="text-align:center">revenue</th>
+<th style="text-align:center">prev_month_revenue</th>
+<th style="text-align:center">revenue_growth</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">2020-01-01</td>
+<td style="text-align:center">650</td>
+<td style="text-align:center">NULL</td>
+<td style="text-align:center">NULL</td>
+</tr>
+<tr>
+<td style="text-align:center">2020-02-01</td>
+<td style="text-align:center">1250</td>
+<td style="text-align:center">650</td>
+<td style="text-align:center">92.3</td>
+</tr>
+<tr>
+<td style="text-align:center">2020-03-01</td>
+<td style="text-align:center">1500</td>
+<td style="text-align:center">1250</td>
+<td style="text-align:center">20</td>
+</tr>
+</tbody>
+</table>
+<p>我们还可以按照按城市分组进行统计，查看某个城市某个月份的收入增长情况</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">WITH</span>
+<span class="n">monthly_revenue</span> <span class="k">as</span> <span class="p">(</span>
+    <span class="k">SELECT</span>
+     <span class="n">trunc</span><span class="p">(</span><span class="n">add_time</span><span class="p">,</span><span class="s1">&#39;MM&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="k">month</span><span class="p">,</span>
+    <span class="n">city</span><span class="p">,</span>
+    <span class="k">sum</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span> <span class="k">as</span> <span class="n">revenue</span>
+    <span class="k">FROM</span> <span class="n">orders</span>
+    <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span>
+<span class="p">)</span>
+<span class="p">,</span><span class="n">prev_month_revenue</span> <span class="k">as</span> <span class="p">(</span>
+    <span class="k">SELECT</span> 
+    <span class="k">month</span><span class="p">,</span>
+    <span class="n">city</span><span class="p">,</span>
+    <span class="n">revenue</span><span class="p">,</span>
+    <span class="n">lag</span><span class="p">(</span><span class="n">revenue</span><span class="p">)</span> <span class="n">over</span> <span class="p">(</span><span class="n">partition</span> <span class="k">by</span> <span class="n">city</span> <span class="k">order</span> <span class="k">by</span> <span class="k">month</span><span class="p">)</span> <span class="k">as</span> <span class="n">prev_month_revenue</span>
+    <span class="k">FROM</span> <span class="n">monthly_revenue</span>
+<span class="p">)</span>
+<span class="k">SELECT</span> 
+<span class="k">month</span><span class="p">,</span>
+<span class="n">city</span><span class="p">,</span>
+<span class="n">revenue</span><span class="p">,</span>
+<span class="n">round</span><span class="p">(</span><span class="mi">100</span><span class="p">.</span><span class="mi">0</span><span class="o">*</span><span class="p">(</span><span class="n">revenue</span><span class="o">-</span><span class="n">prev_month_revenue</span><span class="p">)</span><span class="o">/</span><span class="n">prev_month_revenue</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="k">as</span> <span class="n">revenue_growth</span>
+<span class="k">FROM</span> <span class="n">prev_month_revenue</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">2</span><span class="p">,</span><span class="mi">1</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>结果输出：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">month</th>
+<th style="text-align:center">city</th>
+<th style="text-align:center">revenue</th>
+<th style="text-align:center">revenue_growth</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">2020-01-01</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">450</td>
+<td style="text-align:center">NULL</td>
+</tr>
+<tr>
+<td style="text-align:center">2020-02-01</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">950</td>
+<td style="text-align:center">111.1</td>
+</tr>
+<tr>
+<td style="text-align:center">2020-03-01</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">1000</td>
+<td style="text-align:center">5.3</td>
+</tr>
+<tr>
+<td style="text-align:center">2020-01-01</td>
+<td style="text-align:center">北京</td>
+<td style="text-align:center">200</td>
+<td style="text-align:center">NULL</td>
+</tr>
+<tr>
+<td style="text-align:center">2020-02-01</td>
+<td style="text-align:center">北京</td>
+<td style="text-align:center">300</td>
+<td style="text-align:center">50</td>
+</tr>
+<tr>
+<td style="text-align:center">2020-03-01</td>
+<td style="text-align:center">北京</td>
+<td style="text-align:center">500</td>
+<td style="text-align:center">66.7</td>
+</tr>
+</tbody>
+</table>
+<h3 id="42-需求2累计求和">4.2 需求2：累计求和</h3>
+<p>累计汇总，即当前元素和所有先前元素的总和，如下面的 SQL：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">WITH</span>
+<span class="n">monthly_revenue</span> <span class="k">as</span> <span class="p">(</span>
+    <span class="k">SELECT</span>
+    <span class="n">trunc</span><span class="p">(</span><span class="n">add_time</span><span class="p">,</span><span class="s1">&#39;MM&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="k">month</span><span class="p">,</span>
+    <span class="k">sum</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span> <span class="k">as</span> <span class="n">revenue</span>
+    <span class="k">FROM</span> <span class="n">orders</span>
+    <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span>
+<span class="p">)</span>
+<span class="k">SELECT</span> 
+<span class="k">month</span><span class="p">,</span>
+<span class="n">revenue</span><span class="p">,</span>
+<span class="k">sum</span><span class="p">(</span><span class="n">revenue</span><span class="p">)</span> <span class="n">over</span> <span class="p">(</span><span class="k">order</span> <span class="k">by</span> <span class="k">month</span> <span class="k">rows</span> <span class="k">between</span> <span class="n">unbounded</span> <span class="n">preceding</span> <span class="k">and</span> <span class="k">current</span> <span class="k">row</span><span class="p">)</span> <span class="k">as</span> <span class="n">running_total</span>
+<span class="k">FROM</span> <span class="n">monthly_revenue</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>结果输出：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">month</th>
+<th style="text-align:center">revenue</th>
+<th style="text-align:center">running_total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">2020-01-01</td>
+<td style="text-align:center">650</td>
+<td style="text-align:center">650</td>
+</tr>
+<tr>
+<td style="text-align:center">2020-02-01</td>
+<td style="text-align:center">1250</td>
+<td style="text-align:center">1900</td>
+</tr>
+<tr>
+<td style="text-align:center">2020-03-01</td>
+<td style="text-align:center">1500</td>
+<td style="text-align:center">3400</td>
+</tr>
+</tbody>
+</table>
+<p>我们还可以使用下面的组合方式进行分析，SQL 如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span>
+   <span class="n">order_id</span><span class="p">,</span>
+   <span class="n">customer_id</span><span class="p">,</span>
+   <span class="n">city</span><span class="p">,</span>
+   <span class="n">add_time</span><span class="p">,</span>
+   <span class="n">amount</span><span class="p">,</span>
+   <span class="k">sum</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span> <span class="n">over</span> <span class="p">()</span> <span class="k">as</span> <span class="n">amount_total</span><span class="p">,</span> <span class="c1">-- 所有数据求和
+</span><span class="c1"></span>   <span class="k">sum</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span> <span class="n">over</span> <span class="p">(</span><span class="k">order</span> <span class="k">by</span> <span class="n">order_id</span> <span class="k">rows</span> <span class="k">between</span> <span class="n">unbounded</span> <span class="n">preceding</span> <span class="k">and</span> <span class="k">current</span> <span class="k">row</span><span class="p">)</span> <span class="k">as</span> <span class="n">running_sum</span><span class="p">,</span> <span class="c1">-- 累计求和
+</span><span class="c1"></span>   <span class="k">sum</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span> <span class="n">over</span> <span class="p">(</span><span class="n">partition</span> <span class="k">by</span> <span class="n">customer_id</span> <span class="k">order</span> <span class="k">by</span> <span class="n">add_time</span> <span class="k">rows</span> <span class="k">between</span> <span class="n">unbounded</span>    <span class="n">preceding</span> <span class="k">and</span> <span class="k">current</span> <span class="k">row</span><span class="p">)</span> <span class="k">as</span> <span class="n">running_sum_by_customer</span><span class="p">,</span> 
+   <span class="k">avg</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span> <span class="n">over</span> <span class="p">(</span><span class="k">order</span> <span class="k">by</span> <span class="n">add_time</span> <span class="k">rows</span> <span class="k">between</span> <span class="mi">5</span> <span class="n">preceding</span> <span class="k">and</span> <span class="k">current</span> <span class="k">row</span><span class="p">)</span> <span class="k">as</span>  <span class="n">trailing_avg</span> <span class="c1">-- 滚动求平均
+</span><span class="c1"></span><span class="k">FROM</span> <span class="n">orders</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>结果输出：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">order_id</th>
+<th style="text-align:center">customer_id</th>
+<th style="text-align:center">city</th>
+<th style="text-align:center">add_time</th>
+<th style="text-align:center">amount</th>
+<th style="text-align:center">amount_total</th>
+<th style="text-align:center">running_sum</th>
+<th style="text-align:center">running_sum_by_customer</th>
+<th style="text-align:center">trailing_avg</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">2020-01-01 00:00:00.000000</td>
+<td style="text-align:center">200</td>
+<td style="text-align:center">3400</td>
+<td style="text-align:center">200</td>
+<td style="text-align:center">200</td>
+<td style="text-align:center">200</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">B</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">2020-01-05 00:00:00.000000</td>
+<td style="text-align:center">250</td>
+<td style="text-align:center">3400</td>
+<td style="text-align:center">450</td>
+<td style="text-align:center">250</td>
+<td style="text-align:center">225</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">北京</td>
+<td style="text-align:center">2020-01-12 00:00:00.000000</td>
+<td style="text-align:center">200</td>
+<td style="text-align:center">3400</td>
+<td style="text-align:center">650</td>
+<td style="text-align:center">200</td>
+<td style="text-align:center">216.666667</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">2020-02-04 00:00:00.000000</td>
+<td style="text-align:center">400</td>
+<td style="text-align:center">3400</td>
+<td style="text-align:center">1050</td>
+<td style="text-align:center">600</td>
+<td style="text-align:center">262.5</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">D</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">2020-02-05 00:00:00.000000</td>
+<td style="text-align:center">250</td>
+<td style="text-align:center">3400</td>
+<td style="text-align:center">1300</td>
+<td style="text-align:center">250</td>
+<td style="text-align:center">260</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">D</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">2020-02-05 12:00:00.000000</td>
+<td style="text-align:center">300</td>
+<td style="text-align:center">3400</td>
+<td style="text-align:center">1600</td>
+<td style="text-align:center">550</td>
+<td style="text-align:center">266.666667</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">北京</td>
+<td style="text-align:center">2020-02-19 00:00:00.000000</td>
+<td style="text-align:center">300</td>
+<td style="text-align:center">3400</td>
+<td style="text-align:center">1900</td>
+<td style="text-align:center">500</td>
+<td style="text-align:center">283.333333</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">2020-03-01 00:00:00.000000</td>
+<td style="text-align:center">150</td>
+<td style="text-align:center">3400</td>
+<td style="text-align:center">2050</td>
+<td style="text-align:center">750</td>
+<td style="text-align:center">266.666667</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">E</td>
+<td style="text-align:center">北京</td>
+<td style="text-align:center">2020-03-05 00:00:00.000000</td>
+<td style="text-align:center">500</td>
+<td style="text-align:center">3400</td>
+<td style="text-align:center">2550</td>
+<td style="text-align:center">500</td>
+<td style="text-align:center">316.666667</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:center">F</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">2020-03-09 00:00:00.000000</td>
+<td style="text-align:center">250</td>
+<td style="text-align:center">3400</td>
+<td style="text-align:center">2800</td>
+<td style="text-align:center">250</td>
+<td style="text-align:center">291.666667</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">B</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">2020-03-21 00:00:00.000000</td>
+<td style="text-align:center">600</td>
+<td style="text-align:center">3400</td>
+<td style="text-align:center">3400</td>
+<td style="text-align:center">850</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="43-需求3处理重复数据">4.3 需求3：处理重复数据</h3>
+<p>从上面的数据可以看出，存在两条重复的数据**(5,”D”,”上海”,”2020-02-05 00:00:00.000000”,250),
+(5,”D”,”上海”,”2020-02-05 12:00:00.000000”,300),**显然需要对其进行清洗去重，保留最新的一条数据，SQL 如下：</p>
+<p>我们先进行分组排名，然后保留最新的那条数据即可：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="o">*</span>
+<span class="k">FROM</span> <span class="p">(</span>
+    <span class="k">SELECT</span> <span class="o">*</span><span class="p">,</span>
+    <span class="n">row_number</span><span class="p">()</span> <span class="n">over</span> <span class="p">(</span><span class="n">partition</span> <span class="k">by</span> <span class="n">order_id</span> <span class="k">order</span> <span class="k">by</span> <span class="n">add_time</span> <span class="k">desc</span><span class="p">)</span> <span class="k">as</span> <span class="n">rank</span>
+    <span class="k">FROM</span> <span class="n">orders</span>
+<span class="p">)</span> <span class="n">t</span>
+<span class="k">WHERE</span> <span class="n">rank</span><span class="o">=</span><span class="mi">1</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>结果输出：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">t.order_id</th>
+<th style="text-align:center">t.customer_id</th>
+<th style="text-align:center">t.city</th>
+<th style="text-align:center">t.add_time</th>
+<th style="text-align:center">t.amount</th>
+<th style="text-align:center">t.rank</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">2020-01-01 00:00:00.000000</td>
+<td style="text-align:center">200</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">B</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">2020-01-05 00:00:00.000000</td>
+<td style="text-align:center">250</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">北京</td>
+<td style="text-align:center">2020-01-12 00:00:00.000000</td>
+<td style="text-align:center">200</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">2020-02-04 00:00:00.000000</td>
+<td style="text-align:center">400</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">D</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">2020-02-05 12:00:00.000000</td>
+<td style="text-align:center">300</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">北京</td>
+<td style="text-align:center">2020-02-19 00:00:00.000000</td>
+<td style="text-align:center">300</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">2020-03-01 00:00:00.000000</td>
+<td style="text-align:center">150</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">E</td>
+<td style="text-align:center">北京</td>
+<td style="text-align:center">2020-03-05 00:00:00.000000</td>
+<td style="text-align:center">500</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:center">F</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">2020-03-09 00:00:00.000000</td>
+<td style="text-align:center">250</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">B</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">2020-03-21 00:00:00.000000</td>
+<td style="text-align:center">600</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+<p>经过上面的清洗过程，对数据进行了去重。重新计算上面的需求1，正确 SQL 脚本为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">WITH</span>
+<span class="n">orders_cleaned</span> <span class="k">as</span> <span class="p">(</span>
+    <span class="k">SELECT</span> <span class="o">*</span>
+    <span class="k">FROM</span> <span class="p">(</span>
+        <span class="k">SELECT</span> <span class="o">*</span><span class="p">,</span>
+        <span class="n">row_number</span><span class="p">()</span> <span class="n">over</span> <span class="p">(</span><span class="n">partition</span> <span class="k">by</span> <span class="n">order_id</span> <span class="k">order</span> <span class="k">by</span> <span class="n">add_time</span> <span class="k">desc</span><span class="p">)</span> <span class="k">as</span> <span class="n">rank</span>
+        <span class="k">FROM</span> <span class="n">orders</span>
+    <span class="p">)</span><span class="n">t</span>
+    <span class="k">WHERE</span> <span class="n">rank</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
+<span class="p">,</span><span class="n">monthly_revenue</span> <span class="k">as</span> <span class="p">(</span>
+    <span class="k">SELECT</span>
+    <span class="n">trunc</span><span class="p">(</span><span class="n">add_time</span><span class="p">,</span><span class="s1">&#39;MM&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="k">month</span><span class="p">,</span>
+    <span class="k">sum</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span> <span class="k">as</span> <span class="n">revenue</span>
+    <span class="k">FROM</span> <span class="n">orders_cleaned</span>
+    <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span>
+<span class="p">)</span>
+<span class="p">,</span><span class="n">prev_month_revenue</span> <span class="k">as</span> <span class="p">(</span>
+    <span class="k">SELECT</span> 
+    <span class="k">month</span><span class="p">,</span>
+    <span class="n">revenue</span><span class="p">,</span>
+    <span class="n">lag</span><span class="p">(</span><span class="n">revenue</span><span class="p">)</span> <span class="n">over</span> <span class="p">(</span><span class="k">order</span> <span class="k">by</span> <span class="k">month</span><span class="p">)</span> <span class="k">as</span> <span class="n">prev_month_revenue</span>
+    <span class="k">FROM</span> <span class="n">monthly_revenue</span>
+<span class="p">)</span>
+<span class="k">SELECT</span> 
+<span class="k">month</span><span class="p">,</span>
+<span class="n">revenue</span><span class="p">,</span>
+<span class="n">round</span><span class="p">(</span><span class="mi">100</span><span class="p">.</span><span class="mi">0</span><span class="o">*</span><span class="p">(</span><span class="n">revenue</span><span class="o">-</span><span class="n">prev_month_revenue</span><span class="p">)</span><span class="o">/</span><span class="n">prev_month_revenue</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="k">as</span> <span class="n">revenue_growth</span>
+<span class="k">FROM</span> <span class="n">prev_month_revenue</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>结果输出：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">month</th>
+<th style="text-align:center">revenue</th>
+<th style="text-align:center">revenue_growth</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">2020-01-01</td>
+<td style="text-align:center">650</td>
+<td style="text-align:center">NULL</td>
+</tr>
+<tr>
+<td style="text-align:center">2020-02-01</td>
+<td style="text-align:center">1000</td>
+<td style="text-align:center">53.8</td>
+</tr>
+<tr>
+<td style="text-align:center">2020-03-01</td>
+<td style="text-align:center">1500</td>
+<td style="text-align:center">50</td>
+</tr>
+</tbody>
+</table>
+<p>将清洗后的数据创建成视图，方便以后使用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span> <span class="k">VIEW</span> <span class="n">orders_cleaned</span> <span class="k">AS</span>
+<span class="k">SELECT</span>
+    <span class="n">order_id</span><span class="p">,</span> 
+    <span class="n">customer_id</span><span class="p">,</span> 
+    <span class="n">city</span><span class="p">,</span> 
+    <span class="n">add_time</span><span class="p">,</span> 
+    <span class="n">amount</span>
+<span class="k">FROM</span> <span class="p">(</span>
+    <span class="k">SELECT</span> <span class="o">*</span><span class="p">,</span>
+    <span class="n">row_number</span><span class="p">()</span> <span class="n">over</span> <span class="p">(</span><span class="n">partition</span> <span class="k">by</span> <span class="n">order_id</span> <span class="k">order</span> <span class="k">by</span> <span class="n">add_time</span> <span class="k">desc</span><span class="p">)</span> <span class="k">as</span> <span class="n">rank</span>
+    <span class="k">FROM</span> <span class="n">orders</span>
+<span class="p">)</span><span class="n">t</span>
+<span class="k">WHERE</span> <span class="n">rank</span><span class="o">=</span><span class="mi">1</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="44-需求4分组取topn">4.4 需求4：分组取TopN</h3>
+<p>分组取 TopN 是最长见的 SQL 窗口函数使用场景，下面的 SQL 是计算每个月份的 top2 订单金额，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">WITH</span> <span class="n">orders_ranked</span> <span class="k">as</span> <span class="p">(</span>
+    <span class="k">SELECT</span>
+    <span class="n">trunc</span><span class="p">(</span><span class="n">add_time</span><span class="p">,</span><span class="s1">&#39;MM&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="k">month</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">row_number</span><span class="p">()</span> <span class="n">over</span> <span class="p">(</span><span class="n">partition</span> <span class="k">by</span> <span class="n">trunc</span><span class="p">(</span><span class="n">add_time</span><span class="p">,</span><span class="s1">&#39;MM&#39;</span><span class="p">)</span> <span class="k">order</span> <span class="k">by</span> <span class="n">amount</span> <span class="k">desc</span><span class="p">,</span> <span class="n">add_time</span><span class="p">)</span> <span class="k">as</span> <span class="n">rank</span>
+    <span class="k">FROM</span> <span class="n">orders_cleaned</span>
+<span class="p">)</span>
+<span class="k">SELECT</span> 
+    <span class="k">month</span><span class="p">,</span>
+    <span class="n">order_id</span><span class="p">,</span>
+    <span class="n">customer_id</span><span class="p">,</span>
+    <span class="n">city</span><span class="p">,</span>
+    <span class="n">add_time</span><span class="p">,</span>
+    <span class="n">amount</span>
+<span class="k">FROM</span> <span class="n">orders_ranked</span>
+<span class="k">WHERE</span> <span class="n">rank</span> <span class="o">&lt;=</span><span class="mi">2</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="45-需求5重复购买行为">4.5 需求5：重复购买行为</h3>
+<p>下面的 SQL 计算重复购买率：重复购买的人数/总人数*100%以及第一笔订单金额与第二笔订单金额之间的典型差额:avg(第二笔订单金额/第一笔订单金额)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">WITH</span> <span class="n">customer_orders</span> <span class="k">as</span> <span class="p">(</span>
+    <span class="k">SELECT</span> <span class="o">*</span><span class="p">,</span>
+    <span class="n">row_number</span><span class="p">()</span> <span class="n">over</span> <span class="p">(</span><span class="n">partition</span> <span class="k">by</span> <span class="n">customer_id</span> <span class="k">order</span> <span class="k">by</span> <span class="n">add_time</span><span class="p">)</span> <span class="k">as</span> <span class="n">customer_order_n</span><span class="p">,</span>
+    <span class="n">lag</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span> <span class="n">over</span> <span class="p">(</span><span class="n">partition</span> <span class="k">by</span> <span class="n">customer_id</span> <span class="k">order</span> <span class="k">by</span> <span class="n">add_time</span><span class="p">)</span> <span class="k">as</span> <span class="n">prev_order_amount</span>
+    <span class="k">FROM</span> <span class="n">orders_cleaned</span>
+<span class="p">)</span>
+<span class="k">SELECT</span>
+<span class="n">round</span><span class="p">(</span><span class="mi">100</span><span class="p">.</span><span class="mi">0</span><span class="o">*</span><span class="k">sum</span><span class="p">(</span><span class="k">case</span> <span class="k">when</span> <span class="n">customer_order_n</span><span class="o">=</span><span class="mi">2</span> <span class="k">then</span> <span class="mi">1</span> <span class="k">end</span><span class="p">)</span><span class="o">/</span><span class="k">count</span><span class="p">(</span><span class="k">distinct</span> <span class="n">customer_id</span><span class="p">),</span><span class="mi">1</span><span class="p">)</span> <span class="k">as</span> <span class="n">repeat_purchases</span><span class="p">,</span><span class="c1">-- 重复购买率
+</span><span class="c1"></span><span class="k">avg</span><span class="p">(</span><span class="k">case</span> <span class="k">when</span> <span class="n">customer_order_n</span><span class="o">=</span><span class="mi">2</span> <span class="k">then</span> <span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="o">*</span><span class="n">amount</span><span class="o">/</span><span class="n">prev_order_amount</span> <span class="k">end</span><span class="p">)</span> <span class="k">as</span> <span class="n">revenue_expansion</span> <span class="c1">-- 重复购买较上次购买差异，第一笔订单金额与第二笔订单金额之间的典型差额
+</span><span class="c1"></span><span class="k">FROM</span> <span class="n">customer_orders</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>结果输出：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">orders_cleaned.order_id</th>
+<th style="text-align:center">orders_cleaned.customer_id</th>
+<th style="text-align:center">orders_cleaned.city</th>
+<th style="text-align:center">orders_cleaned.add_time</th>
+<th style="text-align:center">orders_cleaned.amount</th>
+<th style="text-align:center">customer_order_n</th>
+<th style="text-align:center">prev_order_amount</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">2020-01-01 00:00:00.000000</td>
+<td style="text-align:center">200</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">NULL</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">2020-02-04 00:00:00.000000</td>
+<td style="text-align:center">400</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">200</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">2020-03-01 00:00:00.000000</td>
+<td style="text-align:center">150</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">400</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">B</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">2020-01-05 00:00:00.000000</td>
+<td style="text-align:center">250</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">NULL</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">B</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">2020-03-21 00:00:00.000000</td>
+<td style="text-align:center">600</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">250</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">北京</td>
+<td style="text-align:center">2020-01-12 00:00:00.000000</td>
+<td style="text-align:center">200</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">NULL</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">北京</td>
+<td style="text-align:center">2020-02-19 00:00:00.000000</td>
+<td style="text-align:center">300</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">200</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">D</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">2020-02-05 12:00:00.000000</td>
+<td style="text-align:center">300</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">NULL</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">E</td>
+<td style="text-align:center">北京</td>
+<td style="text-align:center">2020-03-05 00:00:00.000000</td>
+<td style="text-align:center">500</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">NULL</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:center">F</td>
+<td style="text-align:center">上海</td>
+<td style="text-align:center">2020-03-09 00:00:00.000000</td>
+<td style="text-align:center">250</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<p>最终结果输出：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">repeat_purchases</th>
+<th style="text-align:center">revenue_expansion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">50</td>
+<td style="text-align:center">1.9666666666666668</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-参考">5. 参考</h2>
+<ol>
+<li>SQL 基础教程（第 2 版）- MICK (作者) 孙淼 , 罗勇 (译者)</li>
+<li>MySQL 窗口函数 <a href="https://tding.top/archives/c6e31643.html">https://tding.top/archives/c6e31643.html</a></li>
+<li>使用 Hive SQL 的窗口函数进行商务数据分析  <a href="https://jiamaoxiang.top/2020/09/07/%E4%BD%BF%E7%94%A8Hive-SQL%E7%9A%84%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E8%BF%9B%E8%A1%8C%E5%95%86%E5%8A%A1%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" target="_blank" rel="noopener noreffer">Jmx&rsquo;s Blog</a>
+</li>
+</ol></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>本文于 2020-11-13 更新</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/sql">SQL</a>,&nbsp;<a href="/tags/%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0">窗口函数</a></section>
+        <section>
+            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2020-11-13-%E4%B8%BB%E9%A2%98%E6%96%87%E6%A1%A3-%E5%86%85%E5%AE%B9/" class="prev" rel="prev" title="主题文档 - 内容"><i class="fas fa-angle-left fa-fw"></i>主题文档 - 内容</a>
+            <a href="/2020-11-13-sql-%E5%8A%9B%E6%89%A3%E7%BB%83%E4%B9%A0/" class="next" rel="next" title="SQL 力扣练习">SQL 力扣练习<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div class="comment"></div>
+    </article></div>
+            </main><footer class="footer">
+    <div class="copyright"><div class="copyright-line">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer"><i class="far fa-heart fa-fw"></i> LoveIt</a>
+        </div>
+
+        <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Yang Xu</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+    </div>
+</footer>
+</div><a href="#" class="dynamic-to-top animated faster" id="dynamic-to-top">
+            <i class="fas fa-chevron-up fa-fw"></i>
+        </a><script>
+        document.addEventListener('DOMContentLoaded', function () {
+            lightGallery(document.getElementById('content'), {
+                selector: '.lightgallery',
+                speed: 400,
+                hideBarsDelay: 2000,
+                thumbnail: true,
+                exThumbImage: 'data-thumbnail',
+                thumbWidth: 80,
+                thumbContHeight: 80,
+            });
+        });
+    </script><script>
+        document.addEventListener('DOMContentLoaded', function () {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '\\[', right: '\\]', display: true },{ left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },],
+                strict: false,
+            });
+        });
+    </script><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script src="/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/lightgallery/lightgallery.min.js"></script><script src="/lib/lightgallery/lg-thumbnail.min.js"></script><script src="/lib/lightgallery/lg-zoom.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/auto-render.min.js"></script><script src="/lib/katex/copy-tex.min.js"></script><script src="/lib/katex/mhchem.min.js"></script><script src="/js/theme.min.js"></script></body>
+</html>
